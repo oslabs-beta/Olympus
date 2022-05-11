@@ -1,0 +1,26 @@
+{
+  "name": "olympus",
+  "version": "1.0.0",
+  "description": "A hybrid caching library for GraphQL written for Javascript Express",
+  "main": "schema.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamLang96/Olympus.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdamLang96/Olympus/issues"
+  },
+  "homepage": "https://github.com/AdamLang96/Olympus#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-graphql": "^0.12.0",
+    "mongoose": "^6.3.3",
+    "nodemon": "^2.0.16"
+  }
+}
