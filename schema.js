@@ -1,5 +1,5 @@
-const { all } = require('express/lib/application');
 const graphql = require('graphql');
+const Accounts = require('./models')
 
 const { GraphQLObjectType, GraphQLString, 
        GraphQLID, GraphQLInt, GraphQLSchema, GraphQLList } = graphql;
@@ -23,6 +23,17 @@ const BookType = new GraphQLObjectType({
     })
 });
 
+const accountType = new GraphQLObjectType({
+    name: 'Account',
+    fields: () => ({
+        account_id: {type: GraphQLInt},
+        limit: {type: GraphQLInt},
+        products: {type: new GraphQLList(GraphQLString)}
+    })
+})
+
+
+
 //RootQuery describe how users can use the graph and grab data.
 //E.g Root query to get all authors, get all books, get a particular book 
 //or get a particular author.
@@ -40,18 +51,56 @@ const RootQuery = new GraphQLObjectType({
                 return fakeBookDatabase.find((item) => { return item.id == args.id});
             }
         },
-
         allBooks: {
             type: new GraphQLList(BookType),
             resolve(parent, args) {
                 return fakeBookDatabase
             }
+        },
+        account: {
+            type: accountType,
+            args: {account_id: {type: GraphQLInt}},
+            async resolve(parent, args) {
+                const whacky = await Accounts.findOne({account_id: args.account_id})
+                return whacky      
+            }
         }
     }
 });
- 
+
+
+const mutation = new GraphQLObjectType({
+    name: 'mutation',
+    fields: {
+        createAccount:{
+            type: accountType, 
+            args: {
+                account_id: {type: GraphQLInt},
+                limit: {type: GraphQLInt},
+                products: {type: new GraphQLList(GraphQLString)}        
+            },
+            async resolve(parent,args){
+                const data = await Accounts.create({account_id: args.account_id, limit: args.limit, products: args.products})
+                return data
+            }
+        },
+        deleteAccount:{
+            type: accountType, 
+            args: {
+                account_id: {type: GraphQLInt},
+                limit: {type: GraphQLInt},
+                products: {type: new GraphQLList(GraphQLString)}        
+            },
+            async resolve(parent, args){
+                const data = await Accounts.findOneAndDelete({...args})
+                return data
+            }
+        },
+    }
+ })
 //Creating a new GraphQL Schema, with options query which defines query 
 //we will allow users to use when they are making request.
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation: mutation
 });
