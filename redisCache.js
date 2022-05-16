@@ -9,7 +9,6 @@ class RedisCache {
        // method to cache response of graphql query
       cacheResponse = async (req, res, next)  => {
         let result
-        console.log(req.body, "made it to redis")
         const headers = {
             "content-type": "application/json",
             "Authorization": "<token>"
@@ -28,15 +27,14 @@ class RedisCache {
     //   console.log(thisdata["definitions"][0].selectionSet.selections[0].arguments)
 
         let query = {query: req.body.query}
-        console.log('query inside redisCache:', query)
         let cacheResponseBoolean = await this.redisClient.exists(JSON.stringify(query))
 
         // if true  pull from redis layer
         if(cacheResponseBoolean) {
          console.log("CACHE HIT")
           result = await this.redisClient.get(JSON.stringify(query))
+          console.log("redisCache/result", result)
           res.locals.result = result
-          console.log('redisCache:', res.locals.result)
           return next()
               //if false query database and set in cache
         } else {
