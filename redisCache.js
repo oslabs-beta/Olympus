@@ -13,8 +13,8 @@ class RedisCache {
             "content-type": "application/json",
             "Authorization": "<token>"
         };
-        const queryType = req.body.query.split(' ')[0]
-      let thisdata = parse(req.body.query)
+    //     const queryType = req.body.query.split(' ')[0]
+    //   let thisdata = parse(req.body.query)
     //   console.log(thisdata["definitions"][0].selectionSet.selections[0].selectionSet.selections)
 
     /// pull arguments from queries or mutations here
@@ -28,7 +28,7 @@ class RedisCache {
 
         let query = {query: req.body.query}
         let cacheResponseBoolean = await this.redisClient.exists(JSON.stringify(query))
-        return next()
+
         // if true  pull from redis layer
         if(cacheResponseBoolean) {
          console.log("CACHE HIT")
@@ -40,7 +40,7 @@ class RedisCache {
             console.log("CACHE MISS")
             //make fetch request to /graphql
             result = await axios({
-                url: '/graphql',
+                url:'http://localhost:3000/graphql',
                 method: 'post',
                 headers : headers,
                 data: query})
