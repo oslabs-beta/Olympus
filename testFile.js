@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#root').appendChild(makeFetch);
 
   makeFetch.addEventListener('click', async () => {
-    const data = await Olympus({
+    const data =  await Olympus({
     method: 'POST',
     headers: {'Content-Type': 'application/json; charset=utf-8'},
     body: JSON.stringify({query: query.value})
