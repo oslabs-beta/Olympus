@@ -46,7 +46,7 @@ async function Olympus(options) {
          serverResponse =  await serverResponse.json();
          stringResponse = JSON.stringify(serverResponse);
          // localStorage.setItem(query, stringResponse);
-         setWithExpiry(query, stringResponse, 10); // 600000 = 10 minutes
+         setWithExpiry(query, stringResponse, 1800000); // 1800000 = 30 minutes
          return stringResponse;
      }
 }
