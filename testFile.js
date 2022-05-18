@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // document.querySelector('#root').appendChild(endPoint);
   document.querySelector('#root').appendChild(makeFetch);
 
-  makeFetch.addEventListener('click',  () => {
+  makeFetch.addEventListener('click',  async () => {
 
     //// this needs to work like fetch
        /// this needs to return a promise
-    const data =  Olympus({
+    const data =  await Olympus({
     method: 'POST',
     headers: {'Content-Type': 'application/json; charset=utf-8'},
     body: JSON.stringify({query: query.value})
