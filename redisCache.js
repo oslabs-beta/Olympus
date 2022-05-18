@@ -25,8 +25,7 @@ class RedisCache {
 
         const parsed = this.queryParser(req.body.query)
         if(parsed.operationType === "mutation") {
-         const checkMutationResponse = await this.checkMutation(parsed)
-         console.log(checkMutationResponse)
+         await this.checkMutation(parsed)
         }
         let query = {query: req.body.query}
         let cacheResponseBoolean = await this.redisClient.exists(JSON.stringify(query))
@@ -82,7 +81,7 @@ class RedisCache {
         let gqlParsed
         let matchingKey = false
         let counter = 0
-        let matchingKeysArray=[]
+        let matchingKeysArray = []
         const argsArray = []
         allRedisKeys.forEach(el => {
             el = JSON.parse(el)
@@ -109,8 +108,12 @@ class RedisCache {
             }
             counter++
         }
-        
-        return matchingKeysArray
+        if(matchingKeysArray.length) {
+        for(let i = 0; i < matchingKeysArray.length; i++) {
+            console.log("deleted this key", allRedisKeys[matchingKeysArray[i]])
+            await this.redisClient.del(allRedisKeys[matchingKeysArray[i]])
+        }
+    }
     }
 }
 
