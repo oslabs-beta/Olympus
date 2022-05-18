@@ -43,10 +43,21 @@ async function Olympus(options) {
      // else create it in local storage
      else {
          let serverResponse = await fetch('http://localhost:3000/olympus', options);
+         console.log("here")
          serverResponse =  await serverResponse.json();
-         stringResponse = JSON.stringify(serverResponse);
-         // localStorage.setItem(query, stringResponse);
+         const stringResponse = JSON.stringify(serverResponse.result);
+         const operationType = serverResponse.operationType
+         console.log(operationType)
+         console.log("ISTRUE?", operationType === "query")
+         console.log(operationType)
+         console.log("query")
+
+          // localStorage.setItem(query, stringResponse);
+          // check if mutatation
+          // if so dont run setwithExpiry
+         if(operationType === "query") {
          setWithExpiry(query, stringResponse, 1800000); // 1800000 = 30 minutes
+         }
          return stringResponse;
      }
 }

@@ -25,11 +25,13 @@
     "express-graphql": "^0.12.0",
     "graphql": "^16.5.0",
     "graphql-request": "^4.2.0",
+    "http": "^0.0.1-security",
     "mongoose": "^6.3.3",
     "node-fetch": "^3.2.4",
     "nodemon": "^2.0.16",
     "path": "^0.12.7",
-    "redis": "^4.1.0"
+    "redis": "^4.1.0",
+    "ws": "^8.6.0"
   },
   "type": "commonjs"
 }

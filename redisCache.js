@@ -13,9 +13,8 @@ class RedisCache {
             "content-type": "application/json",
             "Authorization": "<token>"
         };
-    //     const queryType = req.body.query.split(' ')[0]
-    //   let thisdata = parse(req.body.query)
-    //   console.log(thisdata["definitions"][0].selectionSet.selections[0].selectionSet.selections)
+        
+       
 
     /// pull arguments from queries or mutations here
         /// set keys based on query
@@ -24,17 +23,20 @@ class RedisCache {
            // run through parser
            // invalidate keys that match with mutation
 
-    //   console.log(thisdata["definitions"][0].selectionSet.selections[0].arguments)
-
+        const parsed = this.queryParser(req.body.query)
+        if(parsed.operationType === "mutation") {
+         const checkMutationResponse = await this.checkMutation(parsed)
+         console.log(checkMutationResponse)
+        }
         let query = {query: req.body.query}
         let cacheResponseBoolean = await this.redisClient.exists(JSON.stringify(query))
-
+        
         // if true  pull from redis layer
         if(cacheResponseBoolean) {
          console.log("CACHE HIT")
           result = await this.redisClient.get(JSON.stringify(query))
-          console.log("redisCache/result", result)
           res.locals.result = result
+          res.locals.operationType = parsed.operationType
           return next()
               //if false query database and set in cache
         } else {
@@ -46,13 +48,69 @@ class RedisCache {
                 headers : headers,
                 data: query})
                         
-            // set redis layer
+            // set redis layer 
+            
+            //if mutation do not run redisClient.set or redisClient.expire
+              //parse mutation
+              // parse all keys in redis layer
+              //remove matching mutation/query pairs
+            if(parsed.operationType == "query") {
             this.redisClient.set(JSON.stringify(query), JSON.stringify(result.data))
             this.redisClient.expire(JSON.stringify(query), this.expiration)
+            }
             res.locals.result = JSON.stringify(result.data)
+            res.locals.operationType = parsed.operationType
             // send back
             return next()
         }
+    }
+
+     queryParser = (queryString) => {
+        const argsObject = {} 
+        let parsedQuery = parse(queryString)
+        const operationType = parsedQuery['definitions'][0].operation
+        const args = parsedQuery["definitions"][0].selectionSet.selections[0].arguments
+        args.forEach(el => {
+            argsObject[el.name.value] = el.value.value
+        })
+        return {"args": argsObject, "operationType": operationType}     
+    }
+
+
+    checkMutation = async (mutationObj) => {
+        const allRedisKeys = await this.redisClient.keys('*')
+        let gqlParsed
+        let matchingKey = false
+        let counter = 0
+        let matchingKeysArray=[]
+        const argsArray = []
+        allRedisKeys.forEach(el => {
+            el = JSON.parse(el)
+            gqlParsed = this.queryParser(el.query)
+            argsArray.push(gqlParsed.args)
+        })
+        const mutationArgs = mutationObj.args
+        // loop over argsArray
+        for(let i = 0; i < argsArray.length; i++) {
+            const cachedKeyObject = argsArray[i]
+            console.log(cachedKeyObject)
+          // loop over object keys
+            for(let j = 0; j < Object.keys(cachedKeyObject).length; j++) {
+           // if object[key[i]] == mutation[key[i]]
+              if(cachedKeyObject[Object.keys(cachedKeyObject)[j]] === mutationArgs[Object.keys(cachedKeyObject)[j]]) {
+                matchingKey = true
+              }
+           //  save that key
+           // move to next iteration in argsArray
+            }
+            if(matchingKey) {
+              matchingKeysArray.push(counter)
+              matchingKey = false
+            }
+            counter++
+        }
+        
+        return matchingKeysArray
     }
 }
 
