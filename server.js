@@ -6,8 +6,10 @@ const RedisCache = require('./redisCache')
 const app = express();
 const mongooseURI = 'mongodb+srv://Adam:Adam@cluster0.suxg1.mongodb.net/sample_analytics?retryWrites=true&w=majority'
 const path = require('path')
+
+
 mongoose.connect(mongooseURI)
-const redis = require('redis')
+const redis = require('redis');
 
 const redisClient = redis.createClient({
     host: "localhost",
@@ -40,10 +42,13 @@ app.get('/olympus-fetch.js', (req, res) => {
 });
 
 app.use('/olympus', redisInstance.cacheResponse, (req, res) => {
-    res.status(200).send(res.locals.result)
+    res.status(200).send(res.locals)
 })
-
 app.use('/graphql', graphqlHTTP({schema, graphiql: true}));
+
+
+
+
 
 
 app.listen(3000, () => {
