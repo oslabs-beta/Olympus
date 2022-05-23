@@ -1,6 +1,7 @@
 .contacts {
     width: 100%;
     padding: 6rem 1rem;
+    color: black;
     /* background-color: #000; */
 }
 
@@ -10,44 +11,46 @@
     display: grid;
     grid-gap: 40px;
     grid-template-columns: repeat(3, 1pr);
+    color: black;
+
 }
 
 .card-container .card {
-    border: 1px solid #eee;
-    color: #eee;
+    border: 1px solid #141414;
+    color: black;
 }
 
 .card {
     text-align: center;
     padding: 1rem;
+    color: black;
 }
-
-.card:hover {
-    background-color: #141414;
-}
-
 
 .card h3 {
     font-size: 1.4rem;
     padding: 1rem;
+    color: black;
 }
 
 .card .name {
     font-size: 4rem;
     font-weight: 600;
     padding: 1rem;
+    color: black;
 }
 
 .contacts p {
     color: #eee;
     padding: 1rem 0;
     font-size: 1.2rem;
+    color: black;
 }
 
 .card .btn {
     display: block;
     width: 80%;
     margin: 2rem auto;
+    color: black;
 }
 
 @media screen and (max-width: 980px) {

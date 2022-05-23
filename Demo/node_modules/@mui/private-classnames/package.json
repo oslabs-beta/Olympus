@@ -1,0 +1,35 @@
+{
+  "name": "@mui/private-classnames",
+  "version": "5.7.0",
+  "private": false,
+  "author": "MUI Team",
+  "description": "Private - React classnames utils used internally in the other MUI component libraries packages.",
+  "main": "./node/index.js",
+  "keywords": [
+    "classnames",
+    "mui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mui/material-ui.git",
+    "directory": "packages/mui-private-classnames"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mui/material-ui/issues"
+  },
+  "homepage": "https://mui.com/",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/mui"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "module": "./index.js",
+  "types": "./index.d.ts"
+}
