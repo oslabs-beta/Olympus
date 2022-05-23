@@ -61,4 +61,4 @@ async function Olympus(options) {
     })
 }
 
-// module.exports = Olympus;
+module.exports = Olympus;
