@@ -1,63 +1,72 @@
 async function Olympus(options) {
     // define query from options object body
-    let query = options.body
+    let query = options.body;
     
     // function definition of helper function to set expiration on local storage items
-    function setWithExpiry(key, value, ttl) {
-        const now = new Date()
-        // `item` is an object which contains the original value as well as the time when it's supposed to expire
+    function setWithExpiration(key, value, ttl) {
+        const now = new Date();
+        // 'item' is an object which contains the original value as well as the time when it's supposed to expire
         const item = {
             value: value,
-            expiry: now.getTime() + ttl,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-    }
+            expiration: now.getTime() + ttl,
+        };
+        // invoke localStorage.setItem method to store k/v pair
+        localStorage.setItem(key, JSON.stringify(item));
+    };
 
     // function definition of helper function to get item from local storage while considering expiration
-    function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
+    function getWithExpiration(key) {
+        // retrieve value of argument key in localStorage
+        const itemStr = localStorage.getItem(key);
         // if the item doesn't exist, return null
         if (!itemStr) {
             return null
+        };
+        // parse item to separate value from expiration
+        const item = JSON.parse(itemStr);
+        // set now variable to current date
+        const now = new Date();
+        // compare the expiration time of the item with the current time
+        if (now.getTime() > item.expiration) {
+        // If the item is expired, delete the item from storage
+        // and return null
+        // localStorage.removeItem(key);
+        return null;
         }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-        // compare the expiry time of the item with the current time
-        if (now.getTime() > item.expiry) {
-            // If the item is expired, delete the item from storage
-            // and return null
-            localStorage.removeItem(key)
-            return null
-        }
-        return item.value
-    }
+        // if not expired, return the value of the key without the expiration
+        return item.value;
+    };
 
-    // check if its in local storage
-    // let localResponse =  await localStorage.getItem(query)
+    // check if passed in query exists as key in local storage
     return new Promise(async (resolve, reject) => {
-    try {
-    let localResponse = getWithExpiry(query)
-    // if it is return from local storage\
-    if(localResponse != null) {
-         resolve(localResponse)
-     } 
-     // else create it in local storage
-     else {
-         let serverResponse = await fetch('http://localhost:3000/olympus', options);
-         serverResponse =  await serverResponse.json();
-         const stringResponse = JSON.stringify(serverResponse.result);
-         const operationType = serverResponse.operationType
-          // localStorage.setItem(query, stringResponse);
-          // check if mutatation
-          // if so dont run setwithExpiry
-         if(operationType === "query") {
-         setWithExpiry(query, stringResponse, 1800000); // 1800000 = 30 minutes
-         }
-          resolve(stringResponse);
-     }
-    } catch(err) {
-        reject(err)
-    }
+        try {
+            let localResponse = getWithExpiration(query)
+            // if it exists, return from local storage
+            if(localResponse != null) {
+                console.log('LocalStorage HIT');
+                resolve(localResponse);
+            }
+            // else create it in local storage
+            else {
+                // make async request to olympus endpoint passing in options object
+                let serverResponse = await fetch('http://localhost:3000/olympus', options);
+                // json the response
+                serverResponse =  await serverResponse.json();
+                // stringify the response
+                const stringResponse = JSON.stringify(serverResponse.result);
+                // keep track of the operation type (query or mutation)
+                const operationType = serverResponse.operationType;
+                // check if the operation type is mutation
+                // if so dont run setWithExpiration
+                // only setWithExpiration if operation type is query
+                if(operationType === "query") {
+                setWithExpiration(query, stringResponse, 600000); // 600000 milliseconds = 10 minutes
+                }
+                resolve(stringResponse);
+            } // add a ')' for testing
+        } catch(err) {
+            reject(err)
+        }
     })
 }
 

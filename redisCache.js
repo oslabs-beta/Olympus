@@ -33,9 +33,10 @@ class RedisCache {
         // if true  pull from redis layer
         if(cacheResponseBoolean) {
          console.log("CACHE HIT")
-          result = await this.redisClient.get(JSON.stringify(query))
-          res.locals.result = result
-          res.locals.operationType = parsed.operationType
+          result = await this.redisClient.get(JSON.stringify(query));
+          res.locals.result = result;
+          res.locals.operationType = parsed.operationType;
+        //   console.log(res.locals.result) // for testing
           return next()
               //if false query database and set in cache
         } else {
