@@ -5,7 +5,7 @@
 ## Table of Contents
 - [Install](#install)
 - [Server Setup](#server)
-- [Client-side]
+- Client-side
   - [Making Queries](#queries)
   - [Making Mutations](#mutations)
 - [The Team ](#team )
@@ -14,20 +14,20 @@
 ## <a name="install"/> Install Olympus
 Install our Express library via npm
 
-```
+```bash
 npm install olympus // update this name possibly
 ```
 
  ## <a name="server"/> Set up your Express server
 1. Import our Redis Middleware
 
-```
+```javascript
 const RedisCache = require('./redisCache') // pretty sure we change the part after require to 'olympus'
 ```
 
 2. Set up your Redis Server
 
-```
+```javascript
 const redis = require('redis');
 const redisClient = redis.createClient({
     host: "localhost",
@@ -43,7 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 
 3. Add the following endpoints
 
-```
+```javascript
 app.use('/olympus', redisInstance.cacheResponse, (req, res) => {
     res.status(200).send(res.locals)
 })
@@ -53,7 +53,7 @@ app.use('/graphql', graphqlHTTP({schema, graphiql: true}));
 ### <a name="queries"/> Making Queries
 1. Import `Olympus` in files that make GraphQL queries
 
-```
+```javascript
 import { Olympus } from 'olympus'; // MIGHT NEED TO CHANGE THIS
 ```
 
@@ -61,7 +61,7 @@ import { Olympus } from 'olympus'; // MIGHT NEED TO CHANGE THIS
 
 For example, here's how you might send a GraphQL request using the Fetch API:
 
-```
+```javascript
     fetch('/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/graphql' },
@@ -72,7 +72,7 @@ For example, here's how you might send a GraphQL request using the Fetch API:
 
 And here's what that same request looks like using Olympus:
 
-```
+```javascript
     Olympus({
       method: 'POST',
       headers: { 'Content-Type': 'application/graphql' },
