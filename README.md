@@ -1,6 +1,4 @@
-<p align="center">
 ![](OlympusHouse.png)
-</p>
 
 # Welcome to [Olympus](https://github.com/oslabs-beta/olympus) &middot; [![License badge](https://img.shields.io/badge/license-MIT-informational)](https://github.com/oslabs-beta/olympus/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]()
 Olympus is a hybrid caching library for GraphQL written for Javascript Express
