@@ -91,7 +91,7 @@ Olympus({
 .then(/* code */)
 ```
 
-Simply replace `fetch` with `olympus-fetch` wherever the client-side code queries the GraphQL API, and you're done! You've set up caching inside your client's browser Local Storage.
+Simply replace `fetch` with `Olympus` wherever the client-side code queries the GraphQL API, and you're done! You've set up caching inside your client's browser Local Storage.
 
 ### <a name="mutations"/> Making Mutations
 (FILL IN)
