@@ -1,5 +1,6 @@
 import React from "react";
 import Trend from "react-trend";
+import Querybox from "../container/querybox.jsx";
 import "../styles/Olympus.css";
 
 const Olympus = () => {
@@ -10,6 +11,14 @@ const Olympus = () => {
   const addOne = () => {
     console.log("yes");
   };
+
+  // olympus function     
+    // const data =  await Olympus({
+    //   method: 'POST',
+    //   headers: {'Content-Type': 'application/json; charset=utf-8'},
+    //   body: JSON.stringify({query: query.value})
+    // });
+
   return (
     <div className="demo-container">
       <h2>Try out our Demo</h2>
@@ -21,54 +30,9 @@ const Olympus = () => {
             Test out a simple mutation query, it passes through unaffected
           </li>
         </ul>
-        <div className="demo-display">
-          <div>
-            <div
-              className="scroll-view"
-              style={{
-                overflow: "scroll",
-                height: "25vh",
-                backgroundColor: "lightgray",
-                width: "40rem",
-                borderRadius: "5px",
-                border: "solid 1px black",
-              }}
-            >
-              <code>Olympus Demo Query</code>
-            </div>
-            <br></br>
-            <div
-              className="scroll-view"
-              style={{
-                overflow: "scroll",
-                height: "25vh",
-                backgroundColor: "lightgray",
-                width: "40rem",
-                borderRadius: "5px",
-                border: "solid 1px black",
-              }}
-            >
-              <code>Olympus Demo Result of Query</code>
-            </div>
-          </div>
-          <div>
-            <div className="graph">
-              <h3 style={{ color: "gold" }}>Network Trend Graph</h3>
-              <Trend
-                className="Trend-Chart"
-                smooth={true}
-                autoDrawDuration={3000}
-                autoDrawEasing="ease-out"
-                //   data={fetchTimes}
-                //Sample data
-                data={[0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]}
-                gradient={["#00c6ff", "#F0F", "#FF0"]}
-                radius={10}
-                strokeWidth={2}
-                strokeLinecap={"round"}
-              />
-            </div>
-          </div>
+        <div className='row'>
+          <Querybox style= {{width:"25%"}}/>
+          <Querybox style= {{width:"75%"}}/>
         </div>
       </div>
       <div className="query-buttons">

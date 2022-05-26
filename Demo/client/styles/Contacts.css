@@ -6,13 +6,11 @@
 }
 
 .card-container {
-    max-width: 1140px;
     margin: auto;
     display: grid;
     grid-gap: 40px;
-    grid-template-columns: repeat(3, 1pr);
+    grid-template-columns: repeat(4, 1fr);
     color: black;
-
 }
 
 .card-container .card {
