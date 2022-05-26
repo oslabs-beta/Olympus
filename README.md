@@ -1,7 +1,5 @@
-![](OlympusHouse.png)
-
 <p align="center">
-<img src="https://drivethruhistoryadventures.com/wp-content/uploads/2018/07/2_Mount-Olympus-A9.jpg" width="500" />
+![](OlympusHouse.png)
 </p>
 
 # Welcome to [Olympus](https://github.com/oslabs-beta/olympus) &middot; [![License badge](https://img.shields.io/badge/license-MIT-informational)](https://github.com/oslabs-beta/olympus/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]()
