@@ -19,6 +19,7 @@ Check out [our demo site](https://github.com/oslabs-beta/olympus) to see what Ol
 - [Making Queries (Client-side)](#queries)
 - [Making Mutations (Client-side)](#mutations)
 - [The Team ](#team )
+- [License](#license )
 ---
 
 ## <a name="install"/> Install Olympus
@@ -28,7 +29,7 @@ Install our Express library via npm
 npm install olympus // update this name possibly
 ```
 
- ## <a name="server"/> Set up your Express server
+## <a name="server"/> Set up your Express server
 1. Import our Redis Middleware
 
 ```javascript
@@ -60,7 +61,7 @@ app.use('/olympus', redisInstance.cacheResponse, (req, res) => {
 app.use('/graphql', graphqlHTTP({schema, graphiql: true}));
 ```
 
-### <a name="queries"/> Making Queries
+## <a name="queries"/> Making Queries
 1. Import `Olympus` in files that make GraphQL queries
 
 ```javascript
@@ -93,7 +94,7 @@ Olympus({
 
 Simply replace `fetch` with `Olympus` wherever the client-side code queries the GraphQL API, and you're done! You've set up caching inside your client's browser Local Storage.
 
-### <a name="mutations"/> Making Mutations
+## <a name="mutations"/> Making Mutations
 (FILL IN)
 
 ## <a name="team "/> The Team
@@ -104,3 +105,10 @@ Bryan Kim   | [GitHub](https://github.com/Bkimmm) | [LinkedIn](https://www.linke
 Kevin Le    | [GitHub](https://github.com/kle160) | [LinkedIn](https://www.linkedin.com/in/kevin-le-3ab05971/)
 <br>
 Marshall Kim    | [GitHub](https://github.com/marshallkkim) | [LinkedIn](https://www.linkedin.com/in/marshallkkim/)
+
+## <a name="license"/> License
+This product is licensed under the MIT License - see the LICENSE file for details.
+
+This is an open source product.
+
+This product is accelerated by [OS Labs](https://opensourcelabs.io/).
