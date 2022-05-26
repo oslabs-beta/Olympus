@@ -2,7 +2,7 @@
 <img src="https://drivethruhistoryadventures.com/wp-content/uploads/2018/07/2_Mount-Olympus-A9.jpg" width="250" />
 </p>
 
-# Welcome to [Olympus](//insert our link to website) &middot; [![License badge](https://img.shields.io/badge/license-MIT-informational)](//insert our license) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]()
+# Welcome to [Olympus](https://github.com/oslabs-beta/olympus) &middot; [![License badge](https://img.shields.io/badge/license-MIT-informational)](https://github.com/oslabs-beta/olympus/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]()
 Olympus is a hybrid caching library for GraphQL written for Javascript Express
 
 ## Features
@@ -10,7 +10,7 @@ Olympus is a hybrid caching library for GraphQL written for Javascript Express
 - Integrates with any server running on Express/Node.js.
 - Includes caching with Redis and in the browser's local storage.
 
-Check out [our demo site](//insert our link to website) to see what Olympus can do.
+Check out [our demo site](https://github.com/oslabs-beta/olympus) to see what Olympus can do. (fix link here + in welcome)
 
 ---
 ## Table of Contents
