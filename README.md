@@ -1,5 +1,16 @@
-# Olympus
-(add more info here) A hybrid caching library for GraphQL written for Javascript Express
+<p align="center">
+<img src="https://drivethruhistoryadventures.com/wp-content/uploads/2018/07/2_Mount-Olympus-A9.jpg" width="250" />
+</p>
+
+# Welcome to [Olympus](//insert our link to website) &middot; [![License badge](https://img.shields.io/badge/license-MIT-informational)](//insert our license) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]()
+Olympus is a hybrid caching library for GraphQL written for Javascript Express
+
+## Features
+- Automatically creates and caches GraphQL queries.
+- Integrates with any server running on Express/Node.js.
+- Includes caching with Redis and in the browser's local storage.
+
+Check out [our demo site](//insert our link to website) to see what Olympus can do.
 
 ---
 ## Table of Contents
@@ -21,7 +32,7 @@ npm install olympus // update this name possibly
 1. Import our Redis Middleware
 
 ```javascript
-const RedisCache = require('./redisCache') // pretty sure we change the part after require to 'olympus'
+const RedisCache = require('./redisCache'); // pretty sure we change the part after require to 'olympus'
 ```
 
 2. Set up your Redis Server
@@ -32,8 +43,8 @@ const redisClient = redis.createClient({
     host: "localhost",
     port: 6379,
   });
-redisClient.connect() 
-const redisInstance = new RedisCache(redisClient)
+redisClient.connect();
+const redisInstance = new RedisCache(redisClient);
 
 // REQUIRED
 app.use(express.json())
@@ -45,7 +56,7 @@ app.use(express.urlencoded({ extended: true }));
 ```javascript
 app.use('/olympus', redisInstance.cacheResponse, (req, res) => {
     res.status(200).send(res.locals)
-})
+});
 app.use('/graphql', graphqlHTTP({schema, graphiql: true}));
 ```
 
