@@ -5,9 +5,8 @@
 ## Table of Contents
 - [Install](#install)
 - [Server Setup](#server)
-- Client-side
-  - [Making Queries](#queries)
-  - [Making Mutations](#mutations)
+- [Making Queries (Client-side)](#queries)
+- [Making Mutations (Client-side)](#mutations)
 - [The Team ](#team )
 ---
 
@@ -62,23 +61,23 @@ import { Olympus } from 'olympus'; // MIGHT NEED TO CHANGE THIS
 For example, here's how you might send a GraphQL request using the Fetch API:
 
 ```javascript
-    fetch('/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/graphql' },
-      body: // query string
-    })
-    .then(/* code */)
+fetch('/graphql', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/graphql' },
+  body: // query string
+})
+.then(/* code */)
 ```
 
 And here's what that same request looks like using Olympus:
 
 ```javascript
-    Olympus({
-      method: 'POST',
-      headers: { 'Content-Type': 'application/graphql' },
-      body: JSON.stringify({query: // query string})
-    })
-    .then(/* code */)
+Olympus({
+  method: 'POST',
+  headers: { 'Content-Type': 'application/graphql' },
+  body: JSON.stringify({query: // query string})
+})
+.then(/* code */)
 ```
 
 Simply replace `fetch` with `olympus-fetch` wherever the client-side code queries the GraphQL API, and you're done! You've set up caching inside your client's browser Local Storage.
