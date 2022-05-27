@@ -61,48 +61,6 @@ class RedisCache {
             return next()
         }
     }
-    let query = { query: req.body.query };
-    let cacheResponseBoolean = await this.redisClient.exists(
-      JSON.stringify(query)
-    );
-
-    // if true  pull from redis layer
-    if (cacheResponseBoolean) {
-      console.log("CACHE HIT");
-      result = await this.redisClient.get(JSON.stringify(query));
-      res.locals.result = result;
-      res.locals.operationType = parsed.operationType;
-      return next();
-      //if false query database and set in cache
-    } else {
-      console.log("CACHE MISS");
-      //make fetch request to /graphql
-      result = await axios({
-        url: "http://localhost:3000/graphql",
-        method: "post",
-        headers: headers,
-        data: query,
-      });
-
-      // set redis layer
-
-      //if mutation do not run redisClient.set or redisClient.expire
-      //parse mutation
-      // parse all keys in redis layer
-      //remove matching mutation/query pairs
-      if (parsed.operationType == "query") {
-        this.redisClient.set(
-          JSON.stringify(query),
-          JSON.stringify(result.data)
-        );
-        this.redisClient.expire(JSON.stringify(query), this.expiration);
-      }
-      res.locals.result = JSON.stringify(result.data);
-      res.locals.operationType = parsed.operationType;
-      // send back
-      return next();
-    }
-  };
 
   queryParser = (queryString) => {
     const argsObject = {};
@@ -159,5 +117,6 @@ class RedisCache {
     }
   };
 }
+
 
 module.exports = RedisCache;
