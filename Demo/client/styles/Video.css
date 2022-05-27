@@ -36,6 +36,9 @@
 .main .btn {
     margin: 1rem .2rem;
 }
+.btn{
+    color:black
+}
 
 @media screen and (max-width:640px) {
     .content h1 {

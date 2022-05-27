@@ -18,7 +18,6 @@ const Video = () => {
                 {/* <Link to='Demo' className='btn btn-light'>Demo</Link> */}
             </div>
         </div>
-
     </div>
   )
 }

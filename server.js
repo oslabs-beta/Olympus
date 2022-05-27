@@ -7,17 +7,23 @@ const app = express();
 const mongooseURI = 'mongodb+srv://Adam:Adam@cluster0.suxg1.mongodb.net/sample_analytics?retryWrites=true&w=majority'
 const path = require('path')
 
-
-mongoose.connect(mongooseURI)
+// after setting up your database set up redis
+mongoose.connect(mongooseURI) // just an example, do not copy
+// copy lines below
 const redis = require('redis');
 
 const redisClient = redis.createClient({
     host: "localhost",
     port: 6379,
-  });
+})
+// .connect();
  
-redisClient.connect() 
+console.log(redisClient);
+
+redisClient.connect()
 const redisInstance = new RedisCache(redisClient)  
+////
+
 app.use(express.json())
 
 // allow us to manipulate JSON objects like req.body
@@ -41,6 +47,8 @@ app.get('/olympus-fetch.js', (req, res) => {
   res.status(200).setHeader('Content-Type','text/javascript').sendFile(path.resolve(__dirname, './olympus-fetch.js'));
 });
 
+// RedisCache.cacheResponse
+// boiler plate instructions for our users
 app.use('/olympus', redisInstance.cacheResponse, (req, res) => {
     res.status(200).send(res.locals)
 })

@@ -32,11 +32,11 @@ body {
   
   .btn {
     padding: 12px 32px;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     text-transform: uppercase;
     background: transparent;
-    color: #fff;
-    border: 1px solid #fff;
+    color: black;
+    border: 2px solid black;
     cursor: pointer;
   }
   
