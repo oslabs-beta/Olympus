@@ -4,12 +4,6 @@ import React,{useState} from 'react';
 
 
 const Querybox = (props) => {
-  const [cached, setCached] = useState({
-    query1: false,
-    query2: false,
-    query3: false,
-    query4: false,
-  })
    
   const queryboxCalled = () => {
     setCached

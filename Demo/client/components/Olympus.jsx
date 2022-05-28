@@ -43,10 +43,17 @@ const Olympus = () => {
   const [runQueryState, setRunQuery] = useState(false);
   const [localStorageState, setLocalStorage] =  useState(false);
   const [Cache, setCache] = useState([]);
-    
+  const [cached, setCached] = useState({
+    "{ test { query1} }": false,
+    "{ test { query2} }": false,
+    "{ test { query3} }": false,
+    "{ test { query4} }": false,
+  })
+
    
 
   const runQuery = () => {
+    console.log('check', Query)
     setRunQuery(true);
     setLocalStorage(true)  
   };
@@ -68,12 +75,17 @@ const Olympus = () => {
     window.location.reload(false);
   };
 
-  if(localStorageState) {
+  if(localStorageState && cached[Query] === false  ) {
+    console.log('check')
     const newCache = Cache.slice()
+    const newCached = {...cached}
+    console.log(newCached)
+    newCached[Query] = true
     newCache.push(<br></br>)
-    newCache.push(<p> {Query} : {Result}   <Timer/></p>)
+    newCache.push(<div> {Query} : {Result}   <Timer/></div>)
     setCache(newCache)
     setLocalStorage(false)
+    setCached(newCached)
   }
 
   return (
