@@ -15,7 +15,6 @@ const Video = () => {
             <p>Hybrid Cache</p>
             <div>
                 <Link to='Demo' className='btn'>Demo</Link>
-                {/* <Link to='Demo' className='btn btn-light'>Demo</Link> */}
             </div>
         </div>
     </div>
