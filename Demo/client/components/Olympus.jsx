@@ -1,23 +1,80 @@
-import React from "react";
-import Trend from "react-trend";
+import React,{useState} from 'react';
+
+import LocalStorage from "../container/LocalStorage.jsx";
 import Querybox from "../container/querybox.jsx";
 import "../styles/Olympus.css";
+import Timer from './Timer.jsx';
 
 const Olympus = () => {
+
+  // const options = [
+  //   { value: "Query String Here", label: "None Selected" },
+  //   { value: "query1", label: "Query 1" },
+  //   { value: "query2", label: "Query 2" },
+  //   { value: "query3", label: "Query 3" },
+  //   { value: "query4", label: "Query 4" },
+  // ];
+
+  const [queryState, setQueryState] = useState({
+    query1: "{ test { query1} }",
+    query2: "{ test { query2} }",
+    query3: "{ test { query3} }",
+    query4: "{ test { query4} }",
+  });
+
+  const [queryResult, setqueryResult] = useState({
+    query1: "{ result { query1} }",
+    query2: "{ result { query2} }",
+    query3: "{ result { query3} }",
+    query4: "{ result { query4} }",
+  });
+
+  const [mutationState, setMutationState] = useState({
+    query1: "{ test { mutation1} }",
+    query2: "{ test { mutation2} }",
+    query3: "{ test { mutation3} }",
+    query4: "{ test { mutation4} }",
+  });
+
+
+  const [Query, setQuery] = useState('');
+  const [Mutation, setMutation] = useState('');
+  const [Result, setResult] = useState('');
+  const [runQueryState, setRunQuery] = useState(false);
+  const [localStorageState, setLocalStorage] =  useState(false);
+  const [Cache, setCache] = useState([]);
+    
+   
+
   const runQuery = () => {
-    console.log("yes");
+    setRunQuery(true);
+    setLocalStorage(true)  
   };
 
-  const addOne = () => {
-    console.log("yes");
+  const runMutation = () => {
+    
+  };
+  const dropDown = (e) => {
+    setQuery(queryState[e.target.value]);
+    setResult(queryResult[e.target.value]);
+    setRunQuery(false);
+    console.log(Query);
+  }
+  
+  const reset = (e) => {
+    setQuery('');
+    setResult('');
+    setRunQuery(false);
+    window.location.reload(false);
   };
 
-  // olympus function     
-    // const data =  await Olympus({
-    //   method: 'POST',
-    //   headers: {'Content-Type': 'application/json; charset=utf-8'},
-    //   body: JSON.stringify({query: query.value})
-    // });
+  if(localStorageState) {
+    const newCache = Cache.slice()
+    newCache.push(<br></br>)
+    newCache.push(<p> {Query} : {Result}   <Timer/></p>)
+    setCache(newCache)
+    setLocalStorage(false)
+  }
 
   return (
     <div className="demo-container">
@@ -30,25 +87,36 @@ const Olympus = () => {
             Test out a simple mutation query, it passes through unaffected
           </li>
         </ul>
+        <br></br>
         <div className='row'>
-          <Querybox style= {{width:"25%"}}/>
-          <Querybox style= {{width:"75%"}}/>
+          <Querybox 
+          Query={Query} 
+          Result={Result} 
+          runQueryState = {runQueryState}
+          />
+          <LocalStorage 
+          Cache = {Cache}
+          />
         </div>
-      </div>
-      <div className="query-buttons">
-        <select className="dropdown">
+        
+        <div className="query-buttons">
+        <select className="dropdown" onChange={dropDown}>
           <option value={"Query String Here"}>None Selected</option>
-          <option>Query for films</option>
-          <option>Query for planets</option>
-          <option>Query for species</option>
-          <option>Query for vessels</option>
+          <option value={"query1"}>Query 1</option>
+          <option value={"query2"}>Query 2</option>
+          <option value={"query3"}>Query 3</option>
+          <option value={"query4"}>Query 4</option>
         </select>
         <button className="get-button" onClick={runQuery}>
           Run Query
         </button>
-        <button className="mutation-button" onClick={addOne}>
+        <button className="mutation-button" onClick={runMutation}>
           Run Mutation
         </button>
+        <button className="reset-button" onClick={reset}>
+          Reset
+        </button>
+      </div>
       </div>
     </div>
   );
