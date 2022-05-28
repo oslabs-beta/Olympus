@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Timer from '../components/Timer.jsx'
+// import Timer from '../components/Timer.jsx'
 
 const LocalStorage = (props) => {
 //   const [Cache, setCache] = useState([])
@@ -13,8 +13,6 @@ const LocalStorage = (props) => {
          
   return (
     <div>
-        {/* <h2> Local Storage </h2> */}
-        {/* <Timer /> */}
         <div 
         className='LocalStorage'
         style={{

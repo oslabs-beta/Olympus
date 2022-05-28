@@ -7,13 +7,15 @@ import Timer from './Timer.jsx';
 
 const Olympus = () => {
 
-  // const options = [
-  //   { value: "Query String Here", label: "None Selected" },
-  //   { value: "query1", label: "Query 1" },
-  //   { value: "query2", label: "Query 2" },
-  //   { value: "query3", label: "Query 3" },
-  //   { value: "query4", label: "Query 4" },
-  // ];
+   //// we want to be able to see TTL for both LocalStorage and Redis
+     /// 1 ideas - individual timers for each query result
+     /// 2 putting a time into query state and decrementing every second
+     /// 3 Bryan's idea
+
+  // If the timer is within 0 to 10 seconds, then the data is in local storage
+  // If the time is within 10 to 60 seconds, the data is in REDIS
+  
+  // NEED TO CREATE A REDIS BOX
 
   const [queryState, setQueryState] = useState({
     query1: "{ test { query1} }",
@@ -36,7 +38,6 @@ const Olympus = () => {
     query4: "{ test { mutation4} }",
   });
 
-
   const [Query, setQuery] = useState('');
   const [Mutation, setMutation] = useState('');
   const [Result, setResult] = useState('');
@@ -49,7 +50,10 @@ const Olympus = () => {
     "{ test { query3} }": false,
     "{ test { query4} }": false,
   })
+  // const [localTimer, setlocalTimer] = useState(second)
 
+  const [dataLocation, setDataLocation] = useState("Cache Miss")
+   
    
 
   const runQuery = () => {
@@ -75,14 +79,17 @@ const Olympus = () => {
     window.location.reload(false);
   };
 
-  if(localStorageState && cached[Query] === false  ) {
+  // const localTime = (time)=>{
+    
+  // };
+
+  if(localStorageState && !cached[Query]) {
     console.log('check')
     const newCache = Cache.slice()
     const newCached = {...cached}
-    console.log(newCached)
     newCached[Query] = true
     newCache.push(<br></br>)
-    newCache.push(<div> {Query} : {Result}   <Timer/></div>)
+    newCache.push(<div> {Query} : {Result}   <Timer /></div>)
     setCache(newCache)
     setLocalStorage(false)
     setCached(newCached)
@@ -109,6 +116,7 @@ const Olympus = () => {
           <LocalStorage 
           Cache = {Cache}
           />
+
         </div>
         
         <div className="query-buttons">
