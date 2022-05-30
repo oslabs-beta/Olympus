@@ -11,14 +11,12 @@ const Querybox = (props) => {
 
 
     // if the run button is clicked for the first time, console.log('cache miss')
-    
     // if the run button is clicked for the second time or more, console.log('cache hit')
   
   return (
     <div className='column'>
         <div className="demo-display">
           <div>
-            {/* This is the demo */}
             <div
               className="scroll-view"
               style={{
@@ -36,8 +34,7 @@ const Querybox = (props) => {
             <br></br>
             <div
               className="scroll-view"
-              style={{
-                  
+              style={{    
                 overflow: "scroll",
                 height: "25vh",
                 backgroundColor: "lightgray",
@@ -47,7 +44,7 @@ const Querybox = (props) => {
               }}
             >
               <h2>Olympus Demo Result of Query</h2>
-              {props.runQueryState ? (<p>{props.Result}</p>) : (<p></p>)}
+              {props.resultQuery}
             </div>
           </div>
         </div>

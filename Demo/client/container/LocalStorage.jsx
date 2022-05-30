@@ -2,13 +2,7 @@ import React, {useState} from 'react'
 // import Timer from '../components/Timer.jsx'
 
 const LocalStorage = (props) => {
-//   const [Cache, setCache] = useState([])
-//     if(props.runQueryState) {
-//       const newCache = Cache.slice()
-//       newCache.push(<p> {props.Query} : {props.Result}</p>)
-//       setCache(newCache)
-//       props.LocalStorageChange()
-//     }
+
     
          
   return (
