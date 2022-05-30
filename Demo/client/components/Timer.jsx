@@ -5,11 +5,13 @@ const Timer = (props) => {
     const [counter, setCounter] = useState(10);
   
     useEffect(() => {
+      // props.StorageMessage(props.Query,'local storage cache')
+
       const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
       return () => clearInterval(timer);
       
     }, [counter]);
-    if(11 > counter && counter >0 ){
+    if(11 > counter && counter > 2 ){
       props.StorageMessage(props.Query,'local storage cache')
     }else{
       props.StorageMessage(props.Query,'Redis Cache')
