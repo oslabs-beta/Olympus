@@ -18,6 +18,7 @@ const LocalStorage = (props) => {
             border: "solid 1px black",
         }}
         >
+          
             <h2>Local Storage</h2>
             {props.Cache}
         </div>

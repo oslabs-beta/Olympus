@@ -60,7 +60,6 @@ const Olympus = () => {
     "{ test { query4} }": false,
   });
   // const [whereStored, setWhereStored] = useState('Cache missed')
-  // const [Time, setTime] = useState(0)
 
   const runQuery = () => {
     setLocalStorage(true);
@@ -74,7 +73,7 @@ const Olympus = () => {
   const dropDown = (e) => {
     setQuery(queryState[e.target.value]);
     setResult(queryResult[e.target.value]);
-    console.log(Query);
+    // console.log(Query);
   }
   
   const reset = (e) => {
@@ -86,6 +85,7 @@ const Olympus = () => {
   const StorageMessage= (query, message) =>{
     let tempStorage = {...Storage}
     tempStorage[query] = message
+    console.log(tempStorage)
     setStorage(tempStorage)
   }
 
@@ -97,7 +97,6 @@ const Olympus = () => {
     newCached[Query] = true
     newCache.push(<br></br>)
     newCache.push(<div> {Query} : {Result}   <Timer Query={Query} Storage={Storage} StorageMessage={StorageMessage}/></div>)
-    console.log('time',Time)
     setCache(newCache)
     setLocalStorage(false)
     setCached(newCached)
