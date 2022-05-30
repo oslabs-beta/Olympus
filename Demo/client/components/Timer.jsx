@@ -9,13 +9,15 @@ const Timer = (props) => {
       return () => clearInterval(timer);
       
     }, [counter]);
-    if(11> counter&&counter >0 ){
+    if(11 > counter && counter >0 ){
       props.StorageMessage(props.Query,'local storage cache')
-    }
-    
-    if(counter === 0){
+    }else{
       props.StorageMessage(props.Query,'Redis Cache')
     }
+    
+    // if(counter > 11){
+      
+    // }
 
     return (
       <div>
