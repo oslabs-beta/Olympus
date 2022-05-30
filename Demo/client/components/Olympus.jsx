@@ -1,7 +1,8 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 
 import LocalStorage from "../container/LocalStorage.jsx";
 import Querybox from "../container/querybox.jsx";
+import TimePassed from './TimePassed.jsx';
 import "../styles/Olympus.css";
 import Timer from './Timer.jsx';
 
@@ -37,11 +38,19 @@ const Olympus = () => {
     query3: "{ test { mutation3} }",
     query4: "{ test { mutation4} }",
   });
+  const [Storage, setStorage] = useState(
+    {
+      "{ test { query1} }": 'Cache missed',
+      "{ test { query2} }": 'Cache missed',
+      "{ test { query3} }": 'Cache missed',
+      "{ test { query4} }": 'Cache missed',
+    }
+  )
 
   const [Query, setQuery] = useState('');
   const [Mutation, setMutation] = useState('');
   const [Result, setResult] = useState('');
-  const [runQueryState, setRunQuery] = useState(false);
+  const [resultQuery, setResultQuery] = useState([]);
   const [localStorageState, setLocalStorage] =  useState(false);
   const [Cache, setCache] = useState([]);
   const [cached, setCached] = useState({
@@ -49,51 +58,52 @@ const Olympus = () => {
     "{ test { query2} }": false,
     "{ test { query3} }": false,
     "{ test { query4} }": false,
-  })
-  // const [localTimer, setlocalTimer] = useState(second)
-
-  const [dataLocation, setDataLocation] = useState("Cache Miss")
-   
-   
+  });
+  // const [whereStored, setWhereStored] = useState('Cache missed')
+  const [Time, setTime] = useState(0)
 
   const runQuery = () => {
-    console.log('check', Query)
-    setRunQuery(true);
-    setLocalStorage(true)  
+    setLocalStorage(true);
+    setResultQuery([<div>{Result} <TimePassed Query={Query}Storage={Storage}/> </div>])  
   };
 
   const runMutation = () => {
     
   };
+
   const dropDown = (e) => {
     setQuery(queryState[e.target.value]);
     setResult(queryResult[e.target.value]);
-    setRunQuery(false);
     console.log(Query);
   }
   
   const reset = (e) => {
     setQuery('');
     setResult('');
-    setRunQuery(false);
     window.location.reload(false);
   };
 
-  // const localTime = (time)=>{
-    
-  // };
+  const StorageMessage= (query, message) =>{
+    let tempStorage = {...Storage}
+    tempStorage[query] = message
+    setStorage(tempStorage)
+  }
 
-  if(localStorageState && !cached[Query]) {
+  if(localStorageState && !cached[Query] ) {
+    console.log('query',Query)
     console.log('check')
     const newCache = Cache.slice()
     const newCached = {...cached}
     newCached[Query] = true
     newCache.push(<br></br>)
-    newCache.push(<div> {Query} : {Result}   <Timer /></div>)
+    newCache.push(<div> {Query} : {Result}   <Timer Query={Query} Storage={Storage} StorageMessage={StorageMessage}/></div>)
+    console.log('time',Time)
     setCache(newCache)
     setLocalStorage(false)
     setCached(newCached)
   }
+
+  
 
   return (
     <div className="demo-container">
@@ -109,11 +119,12 @@ const Olympus = () => {
         <br></br>
         <div className='row'>
           <Querybox 
+          key= 'querybox'
           Query={Query} 
           Result={Result} 
-          runQueryState = {runQueryState}
+          resultQuery = {resultQuery}
           />
-          <LocalStorage 
+          <LocalStorage
           Cache = {Cache}
           />
 
