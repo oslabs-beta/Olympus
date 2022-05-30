@@ -60,7 +60,7 @@ const Olympus = () => {
     "{ test { query4} }": false,
   });
   // const [whereStored, setWhereStored] = useState('Cache missed')
-  const [Time, setTime] = useState(0)
+  // const [Time, setTime] = useState(0)
 
   const runQuery = () => {
     setLocalStorage(true);
