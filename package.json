@@ -26,6 +26,7 @@
     "graphql": "^16.5.0",
     "graphql-request": "^4.2.0",
     "http": "^0.0.1-security",
+    "jest": "^28.1.0",
     "mongoose": "^6.3.3",
     "node-fetch": "^3.2.4",
     "nodemon": "^2.0.16",

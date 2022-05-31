@@ -20,6 +20,8 @@ redisClient.connect()
 const redisInstance = new RedisCache(redisClient)  
 app.use(express.json())
 
+
+
 // allow us to manipulate JSON objects like req.body
 app.use(express.urlencoded({ extended: true }));
 redisClient.on('error', function (err) {
@@ -47,11 +49,6 @@ app.use('/olympus', redisInstance.cacheResponse, (req, res) => {
 app.use('/graphql', graphqlHTTP({schema, graphiql: true}));
 
 
-
-
-
-
 app.listen(3000, () => {
     console.log('Listening on port 3000');
 }); 
-

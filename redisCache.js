@@ -1,10 +1,12 @@
 const axios = require("axios");
 const { parse } = require("graphql/language/parser");
-
 class RedisCache {
+
+    
     constructor(redisClient, expiration = 3600) {
         this.redisClient = redisClient
         this.expiration = expiration
+
     }
        // method to cache response of graphql query
       cacheResponse = async (req, res, next)  => {
@@ -13,15 +15,6 @@ class RedisCache {
             "content-type": "application/json",
             "Authorization": "<token>"
         };
-        
-       
-
-    /// pull arguments from queries or mutations here
-        /// set keys based on query
-        // if mutation
-           // get all keys
-           // run through parser
-           // invalidate keys that match with mutation
 
         const parsed = this.queryParser(req.body.query)
         if(parsed.operationType === "mutation") {
@@ -46,7 +39,7 @@ class RedisCache {
                 method: 'post',
                 headers : headers,
                 data: query})
-                        
+              // const norm = this.normalize(result.data)
             // set redis layer 
             
             //if mutation do not run redisClient.set or redisClient.expire
@@ -54,8 +47,18 @@ class RedisCache {
               // parse all keys in redis layer
               //remove matching mutation/query pairs
             if(parsed.operationType == "query") {
-            this.redisClient.set(JSON.stringify(query), JSON.stringify(result.data))
-            this.redisClient.expire(JSON.stringify(query), this.expiration)
+              // console.log("queryhere", this.normalize(query))
+              let norm = this.normalize(result.data)
+              // console.log("norm", norm)
+              const key = `${parsed.schemaType}.${Object.keys(parsed.args)[0]}.${Object.values(parsed.args)[0]}`
+              // console.log(key)
+              // console.log(norm)
+              // let unnorm = this.denormalize(norm)
+              // console.log("unnorm", unnorm)
+              
+
+            // this.redisClient.set(JSON.stringify(query), JSON.stringify(result.data))
+            // this.redisClient.expire(JSON.stringify(query), this.expiration)
             }
             res.locals.result = JSON.stringify(result.data)
             res.locals.operationType = parsed.operationType
@@ -72,8 +75,57 @@ class RedisCache {
         args.forEach(el => {
             argsObject[el.name.value] = el.value.value
         })
-        return {"args": argsObject, "operationType": operationType}     
+         const schemaType = parsedQuery["definitions"][0].selectionSet.selections[0].name.value
+         const fields =  parsedQuery["definitions"][0].selectionSet.selections[0].selectionSet.selections
+         const fieldNames = []
+        fields.forEach(field => {fieldNames.push(field.name.value)})
+        console.log({"schemaType": schemaType, "args": argsObject, "operationType": operationType, fieldNames: fieldNames})
+         return {"schemaType": schemaType, "args": argsObject, "operationType": operationType, fieldNames: fieldNames}     
     }
+
+
+
+     normalize(object) {
+        return Object.assign(
+          {},
+          ...(function flattener(objectBit, path = "") {
+            return [].concat(
+              ...Object.keys(objectBit).map(key => {
+                // console.log(objectBit)
+                return typeof objectBit[key] === "object" && objectBit[key] !== null
+                  ? flattener(objectBit[key], `${path}.${key}`)
+                  : { [`${path}.${key}`]: objectBit[key] };
+              })
+            );
+          })(object)
+        );
+      }
+
+       denormalize = (pathsObject) => {
+        const payload = {};
+        for (let key in pathsObject) {
+          let workingObj = payload;
+          let path = key.split('.');
+          for (let i = 1; i < path.length; i += 1) {
+            const e = path[i];
+            // if we're at the end of the array, we can do the value assignment! yay!!
+            if (i === path.length - 1) workingObj[e] = pathsObject[key];
+            // only construct a sub-object if one doesn't exist with that name yet
+            if (!workingObj[e]) {
+              // if the item following this one in path array is a number, this nested object must be an array
+              if (Number(path[i + 1]) || Number(path[i + 1]) === 0) {
+                workingObj[e] = [];
+              }
+              else workingObj[e] = {};
+            }
+            // dive further into the object
+            workingObj = workingObj[e];
+          }
+        }
+        return payload;
+      }
+
+    
 
 
     checkMutation = async (mutationObj) => {

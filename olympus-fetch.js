@@ -1,5 +1,7 @@
+
 async function Olympus(options) {
     // define query from options object body
+   
     let query = options.body
     
     // function definition of helper function to set expiration on local storage items
@@ -31,7 +33,7 @@ async function Olympus(options) {
         }
         return item.value
     }
-
+    
     // check if its in local storage
     // let localResponse =  await localStorage.getItem(query)
     return new Promise(async (resolve, reject) => {
