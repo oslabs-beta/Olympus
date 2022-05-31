@@ -38,14 +38,12 @@ const Olympus = () => {
     query3: "{ test { mutation3} }",
     query4: "{ test { mutation4} }",
   });
-  const [Storage, setStorage] = useState(
-    {
-      "{ test { query1} }": 'Cache missed',
-      "{ test { query2} }": 'Cache missed',
-      "{ test { query3} }": 'Cache missed',
-      "{ test { query4} }": 'Cache missed',
-    }
-  )
+  const [Storage, setStorage] = useState({
+    "{ test { query1} }": 'Cache missed',
+    "{ test { query2} }": 'Cache missed',
+    "{ test { query3} }": 'Cache missed',
+    "{ test { query4} }": 'Cache missed',
+  });
 
   const [Query, setQuery] = useState('');
   const [Mutation, setMutation] = useState('');
@@ -61,9 +59,12 @@ const Olympus = () => {
   });
   // const [whereStored, setWhereStored] = useState('Cache missed')
 
-  const runQuery = () => {
-    setLocalStorage(true);
-    setResultQuery([<div>{Result} <TimePassed Query={Query}Storage={Storage}/> </div>])  
+  const runQuery = (e) => {
+    if (e.target.value !== "Query String Here") {
+      setLocalStorage(true);
+      console.log('runQuery',Storage);
+      setResultQuery([<div>{Result} <TimePassed Query={Query} Storage={Storage} /> </div>])
+    }
   };
 
   const runMutation = () => {
@@ -71,9 +72,11 @@ const Olympus = () => {
   };
 
   const dropDown = (e) => {
-    setQuery(queryState[e.target.value]);
-    setResult(queryResult[e.target.value]);
-    // console.log(Query);
+    if (e.target.value !== "Query String Here") {
+      setQuery(queryState[e.target.value]);
+      console.log('dropdown hit', e.target.value);
+      setResult(queryResult[e.target.value]);
+    }
   }
   
   const reset = (e) => {
@@ -84,19 +87,20 @@ const Olympus = () => {
 
   const StorageMessage= (query, message) =>{
     let tempStorage = {...Storage}
-    tempStorage[query] = message
-    console.log(tempStorage)
-    setStorage(tempStorage)
+    tempStorage[query] = message;
+    console.log("storage message", tempStorage)
+    setStorage(tempStorage);
   }
 
-  if(localStorageState && !cached[Query] ) {
+  if(localStorageState && !cached[Query]) {
     console.log('query',Query)
     console.log('check')
     const newCache = Cache.slice()
     const newCached = {...cached}
     newCached[Query] = true
     newCache.push(<br></br>)
-    newCache.push(<div> {Query} : {Result}   <Timer Query={Query} Storage={Storage} StorageMessage={StorageMessage}/></div>)
+    const newQuery = Query
+    newCache.push(<div> {Query} : {Result}   <Timer Query={newQuery} Storage={Storage} StorageMessage={StorageMessage}/></div>)
     setCache(newCache)
     setLocalStorage(false)
     setCached(newCached)
