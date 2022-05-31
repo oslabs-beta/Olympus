@@ -1,3 +1,4 @@
+import { Query } from 'mongoose';
 import React,{useState} from 'react';
 // import '../styles/Querybox.css'
 
@@ -5,9 +6,6 @@ import React,{useState} from 'react';
 
 const Querybox = (props) => {
    
-  const queryboxCalled = () => {
-    setCached
-  }
 
 
     // if the run button is clicked for the first time, console.log('cache miss')
@@ -29,7 +27,7 @@ const Querybox = (props) => {
               }}
             >
               <h2>Olympus Demo Query</h2>
-              <p>{props.Query}</p>
+              <p>{props.Query.demoTest}</p>
             </div>
             <br></br>
             <div
@@ -44,7 +42,9 @@ const Querybox = (props) => {
               }}
             >
               <h2>Olympus Demo Result of Query</h2>
-              {props.resultQuery}
+              {props.Query.hasRun ? (<p>{props.Query.demoResult} {props.queryArray[props.Query.targetValue].cacheMessage}</p>) : (<p>{''}</p>)}
+              {/* {props.Query.hasRun ? props.queryArray[Query.targetValue].beenMutated ? (<p>{props.Query.demoResult} {props.queryArray[props.Query.targetValue].cacheMessage}</p>) : (<p>{''}</p>) : (<p>{''}</p>)} */}
+              
             </div>
           </div>
         </div>
