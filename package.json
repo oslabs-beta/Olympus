@@ -1,10 +1,17 @@
 {
   "name": "olympus",
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  },
   "version": "1.0.0",
   "description": "A hybrid caching library for GraphQL written for Javascript Express",
   "main": "schema.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test-coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "start": "nodemon server.js"
   },
   "repository": {
@@ -34,5 +41,10 @@
     "redis": "^4.1.0",
     "ws": "^8.6.0"
   },
-  "type": "commonjs"
+  "type": "commonjs",
+  "devDependencies": {
+    "@jest/globals": "^28.1.0",
+    "babel-jest": "^28.1.0",
+    "jest": "^28.1.0"
+  }
 }

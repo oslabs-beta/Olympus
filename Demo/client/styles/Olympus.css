@@ -1,0 +1,22 @@
+
+.demo-container {
+    text-align: center;
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    top: 40vh;
+}
+.demo-display {
+    display: flex;
+    gap: 0px;
+}
+.demo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.row {
+    display:flex;
+}   
