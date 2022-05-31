@@ -1,3 +1,4 @@
+import { Query } from 'mongoose';
 import React,{useState} from 'react';
 // import '../styles/Querybox.css'
 
@@ -42,6 +43,8 @@ const Querybox = (props) => {
             >
               <h2>Olympus Demo Result of Query</h2>
               {props.Query.hasRun ? (<p>{props.Query.demoResult} {props.queryArray[props.Query.targetValue].cacheMessage}</p>) : (<p>{''}</p>)}
+              {/* {props.Query.hasRun ? props.queryArray[Query.targetValue].beenMutated ? (<p>{props.Query.demoResult} {props.queryArray[props.Query.targetValue].cacheMessage}</p>) : (<p>{''}</p>) : (<p>{''}</p>)} */}
+              
             </div>
           </div>
         </div>

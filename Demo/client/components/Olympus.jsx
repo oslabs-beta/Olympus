@@ -7,17 +7,17 @@ import "../styles/Olympus.css";
 const Olympus = () => {
 
   const [queryArray, setQueryArray] = useState({
-    query1: {queryString:  "{ test { query1 } }", resultString:"{ result { query1 } }", mutationString:"{ mutation {query1}}",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'From Cache Missed', beenMutated:false},
-    query2: {queryString:  "{ test { query2 } }", resultString:"{ result { query2 } }", mutationString:"{ mutation {query2}}",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'From Cache Missed', beenMutated:false},
-    query3: {queryString:  "{ test { query3 } }", resultString:"{ result { query3 } }", mutationString:"{ mutation {query3}}",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'From Cache Missed', beenMutated:false},
-    query4: {queryString:  "{ test { query4 } }", resultString:"{ result { query4 } }", mutationString:"{ mutation {query4}}",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'From Cache Missed', beenMutated:false},
+    query1: {queryString:  "{ test { query1 } }", resultString:"{ result { query1 } }", mutationString:"{ mutation {query1}}",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
+    query2: {queryString:  "{ test { query2 } }", resultString:"{ result { query2 } }", mutationString:"{ mutation {query2}}",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
+    query3: {queryString:  "{ test { query3 } }", resultString:"{ result { query3 } }", mutationString:"{ mutation {query3}}",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
+    query4: {queryString:  "{ test { query4 } }", resultString:"{ result { query4 } }", mutationString:"{ mutation {query4}}",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
   });
 
   const defaultState = {
-    query1: {queryString:  "{ test { query1 } }", resultString:"{ result { query1 } }", mutationString:"{ mutation { query1 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'From Cache Missed', beenMutated:false},
-    query2: {queryString:  "{ test { query2 } }", resultString:"{ result { query2 } }", mutationString:"{ mutation { query2 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'From Cache Missed', beenMutated:false},
-    query3: {queryString:  "{ test { query3 } }", resultString:"{ result { query3 } }", mutationString:"{ mutation { query3 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'From Cache Missed', beenMutated:false },
-    query4: {queryString:  "{ test { query4 } }", resultString:"{ result { query4 } }", mutationString:"{ mutation { query4 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'From Cache Missed', beenMutated:false },
+    query1: {queryString:  "{ test { query1 } }", resultString:"{ result { query1 } }", mutationString:"{ mutation { query1 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
+    query2: {queryString:  "{ test { query2 } }", resultString:"{ result { query2 } }", mutationString:"{ mutation { query2 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
+    query3: {queryString:  "{ test { query3 } }", resultString:"{ result { query3 } }", mutationString:"{ mutation { query3 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
+    query4: {queryString:  "{ test { query4 } }", resultString:"{ result { query4 } }", mutationString:"{ mutation { query4 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
   }
   
   const [Query, setQuery] = useState({
@@ -106,7 +106,7 @@ const Olympus = () => {
     else if(queryArray[Query.targetValue].redisTimer > 0){
       cacheMessage(Query.targetValue, "From Redis Cache")
     }else if(queryArray[Query.targetValue].redisTimer === 0 ){
-      cacheMessage(Query.targetValue, "From Cache Missed")
+      cacheMessage(Query.targetValue, " cache Missed")
       const copyState = {...queryArray}
       copyState[Query.targetValue] = defaultState[Query.targetValue]
       setQueryArray(copyState);
@@ -137,7 +137,9 @@ const Olympus = () => {
       setQuery(tempObj)
     }
   }
-  
+  const reload = ()=>{
+    return window.location.reload();
+  }
  
 
   return (
@@ -179,9 +181,9 @@ const Olympus = () => {
         <button className="mutation-button" onClick={runMutation}>
           Run Mutation
         </button>
-        {/* <button className="reset-button" onClick={reset}>
+        <button className="reset-button" onClick={reload}>
           Reset
-        </button> */}
+        </button>
       </div>
       </div>
     </div>
