@@ -5,9 +5,6 @@ import React,{useState} from 'react';
 
 const Querybox = (props) => {
    
-  const queryboxCalled = () => {
-    setCached
-  }
 
 
     // if the run button is clicked for the first time, console.log('cache miss')
@@ -44,7 +41,7 @@ const Querybox = (props) => {
               }}
             >
               <h2>Olympus Demo Result of Query</h2>
-              {props.Query.demoResult}
+              {props.Query.hasRun ? (<p>{props.Query.demoResult} {props.queryArray[props.Query.targetValue].cacheMessage}</p>) : (<p>{''}</p>)}
             </div>
           </div>
         </div>
