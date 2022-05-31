@@ -20,7 +20,7 @@ const LocalStorage = (props) => {
         >
           
             <h2>Local Storage</h2>
-            {props.Cache}
+            {JSON.stringify(props.queryArray)}
         </div>
     </div>
   )

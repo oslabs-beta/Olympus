@@ -8,62 +8,54 @@ import Timer from './Timer.jsx';
 
 const Olympus = () => {
 
-   //// we want to be able to see TTL for both LocalStorage and Redis
-     /// 1 ideas - individual timers for each query result
-     /// 2 putting a time into query state and decrementing every second
-     /// 3 Bryan's idea
+  const [queryArray, setQueryArray] = useState({
+    query1: {queryString:  "{ test { query1} }", resultString:"{ result { query1} }", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'Cache Missed'},
+    query2: {queryString:  "{ test { query2} }", resultString:"{ result { query2} }", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'Cache Missed'},
+    query3: {queryString:  "{ test { query3} }", resultString:"{ result { query3} }", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'Cache Missed'},
+    query4: {queryString:  "{ test { query4} }", resultString:"{ result { query4} }", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: 'Cache Missed'},
+  });
+  const [Query, setQuery] = useState({
+    targetValue: '',
+    demoTest: '',
+    demoResult:'',
+    
+  })
+   const isCached = (key) => {
+     const stateCopy = {...queryArray};
+     console.log(stateCopy)
+     console.log("thisiskey", key)
+     console.log("atKey", stateCopy[key])
+     stateCopy[key].isCached = true;
+     setQueryArray(stateCopy)
+   }
 
-  // If the timer is within 0 to 10 seconds, then the data is in local storage
-  // If the time is within 10 to 60 seconds, the data is in REDIS
+  const localStorageTimer = (key) => {
+    // if(stateCopy[key].localStorageTimer === 0 ) return clearInterval()
+    const stateCopy = {...queryArray};
+    stateCopy[key].localStorageTimer = stateCopy[key].localStorageTimer - 1
+    setQueryArray(stateCopy)
+  }
   
-  // NEED TO CREATE A REDIS BOX
+  const cacheMesage = (key, value) => {
+    const stateCopy = {...queryArray};
+    stateCopy[key].cacheMesage = value
+    setQueryArray(stateCopy)
+  }
 
-  const [queryState, setQueryState] = useState({
-    query1: "{ test { query1} }",
-    query2: "{ test { query2} }",
-    query3: "{ test { query3} }",
-    query4: "{ test { query4} }",
-  });
-
-  const [queryResult, setqueryResult] = useState({
-    query1: "{ result { query1} }",
-    query2: "{ result { query2} }",
-    query3: "{ result { query3} }",
-    query4: "{ result { query4} }",
-  });
-
-  const [mutationState, setMutationState] = useState({
-    query1: "{ test { mutation1} }",
-    query2: "{ test { mutation2} }",
-    query3: "{ test { mutation3} }",
-    query4: "{ test { mutation4} }",
-  });
-  const [Storage, setStorage] = useState({
-    "{ test { query1} }": 'Cache missed',
-    "{ test { query2} }": 'Cache missed',
-    "{ test { query3} }": 'Cache missed',
-    "{ test { query4} }": 'Cache missed',
-  });
-
-  const [Query, setQuery] = useState('');
-  const [Mutation, setMutation] = useState('');
-  const [Result, setResult] = useState('');
-  const [resultQuery, setResultQuery] = useState([]);
-  const [localStorageState, setLocalStorage] =  useState(false);
-  const [Cache, setCache] = useState([]);
-  const [cached, setCached] = useState({
-    "{ test { query1} }": false,
-    "{ test { query2} }": false,
-    "{ test { query3} }": false,
-    "{ test { query4} }": false,
-  });
-  // const [whereStored, setWhereStored] = useState('Cache missed')
-
-  const runQuery = (e) => {
-    if (e.target.value !== "Query String Here") {
-      setLocalStorage(true);
-      console.log('runQuery',Storage);
-      setResultQuery([<div>{Result} <TimePassed Query={Query} Storage={Storage} /> </div>])
+  const runQuery = () => {
+    if (Query.targetValue !== "Query String Here") {
+      console.log('run query target value',Query.targetValue)
+       isCached(Query.targetValue)
+      let runInterval = setInterval(() => {
+        localStorageTimer(Query.targetValue)
+        console.log("timeleft", queryArray[Query.targetValue].localStorageTimer)
+        console.log("isLess", queryArray[Query.targetValue].localStorageTimer <= 0)
+         if(queryArray[Query.targetValue].localStorageTimer <= 0) {
+           cacheMesage(Query.targetValue, "Redis Cache")
+           clearInterval(runInterval)
+        }
+      }, 1000)
+      
     }
   };
 
@@ -73,40 +65,16 @@ const Olympus = () => {
 
   const dropDown = (e) => {
     if (e.target.value !== "Query String Here") {
-      setQuery(queryState[e.target.value]);
-      console.log('dropdown hit', e.target.value);
-      setResult(queryResult[e.target.value]);
+      // console.log(e.target.value)
+      let tempObj = {...Query}
+      tempObj.targetValue = e.target.value
+      tempObj.demoTest = queryArray[e.target.value].queryString
+      tempObj.demoResult = queryArray[e.target.value].resultString
+      setQuery(tempObj)
     }
   }
   
-  const reset = (e) => {
-    setQuery('');
-    setResult('');
-    window.location.reload(false);
-  };
-
-  const StorageMessage= (query, message) =>{
-    let tempStorage = {...Storage}
-    tempStorage[query] = message;
-    console.log("storage message", tempStorage)
-    setStorage(tempStorage);
-  }
-
-  if(localStorageState && !cached[Query]) {
-    console.log('query',Query)
-    console.log('check')
-    const newCache = Cache.slice()
-    const newCached = {...cached}
-    newCached[Query] = true
-    newCache.push(<br></br>)
-    const newQuery = Query
-    newCache.push(<div> {Query} : {Result}   <Timer Query={newQuery} Storage={Storage} StorageMessage={StorageMessage}/></div>)
-    setCache(newCache)
-    setLocalStorage(false)
-    setCached(newCached)
-  }
-
-  
+ 
 
   return (
     <div className="demo-container">
@@ -122,13 +90,11 @@ const Olympus = () => {
         <br></br>
         <div className='row'>
           <Querybox 
-          key= 'querybox'
-          Query={Query} 
-          Result={Result} 
-          resultQuery = {resultQuery}
+            Query = {Query}
+            key= 'querybox'
           />
           <LocalStorage
-          Cache = {Cache}
+          queryArray = {queryArray}
           />
 
         </div>
@@ -147,9 +113,9 @@ const Olympus = () => {
         <button className="mutation-button" onClick={runMutation}>
           Run Mutation
         </button>
-        <button className="reset-button" onClick={reset}>
+        {/* <button className="reset-button" onClick={reset}>
           Reset
-        </button>
+        </button> */}
       </div>
       </div>
     </div>

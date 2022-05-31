@@ -29,7 +29,7 @@ const Querybox = (props) => {
               }}
             >
               <h2>Olympus Demo Query</h2>
-              <p>{props.Query}</p>
+              <p>{props.Query.demoTest}</p>
             </div>
             <br></br>
             <div
@@ -44,7 +44,7 @@ const Querybox = (props) => {
               }}
             >
               <h2>Olympus Demo Result of Query</h2>
-              {props.resultQuery}
+              {props.Query.demoResult}
             </div>
           </div>
         </div>
