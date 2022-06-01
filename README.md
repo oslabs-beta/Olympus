@@ -5,15 +5,7 @@
 </p>
 
 <h1 align="center">Welcome to <a href="https://github.com/oslabs-beta/olympus" target="_blank">Olympus</a></h1>
-
 # [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]() [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE) [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)]() [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/olympus-caching/)
-
-<p align="center">
-<a target="_blank" href="https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge"><img alt="GitHub license" src="./LICENSE"></a> 
-<a href="https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white"><img alt="npm" src="empty"></a>
-<a href="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white"><img alt="medium" src="https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d"></a>
-<a href="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"><img alt="LinkedIn" src="https://www.linkedin.com/company/olympus-caching/"></a>
-</p>
 
 Olympus is a hybrid caching library for GraphQL written for Javascript Express
 
