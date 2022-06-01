@@ -2,7 +2,7 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('./schema')
 const mongoose = require('mongoose')
-const RedisCache = require('./redisCache')
+const RedisCache = require('./olympus-server')
 const app = express();
 const mongooseURI = 'mongodb+srv://Adam:Adam@cluster0.suxg1.mongodb.net/sample_analytics?retryWrites=true&w=majority'
 const path = require('path')
@@ -16,12 +16,10 @@ const redisClient = redis.createClient({
     host: "localhost",
     port: 6379,
 })
-// .connect();
  
-console.log(redisClient);
 
 redisClient.connect()
-const redisInstance = new RedisCache(redisClient)  
+const redisInstance = new RedisCache(redisClient, 'http://localhost:3000/graphql')  
 ////
 
 app.use(express.json())
