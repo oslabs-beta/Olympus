@@ -1,4 +1,3 @@
-import { Query } from 'mongoose';
 import React,{useState} from 'react';
 
 
