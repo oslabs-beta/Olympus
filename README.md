@@ -6,7 +6,7 @@
 
 <h1 align="center">Welcome to <a href="https://github.com/oslabs-beta/olympus" target="_blank">Olympus</a></h1>
 
-# [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]() [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE) [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)]() [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/olympus-caching/)
+# [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]() [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE) [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/olympus-cache) [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/olympus-caching/)
 
 Olympus is a hybrid caching library for GraphQL written for Javascript Express
 
@@ -31,7 +31,7 @@ Check out [our demo site](https://github.com/oslabs-beta/olympus) to see what Ol
 Install our Express library via npm
 
 ```bash
-npm install olympus // update this name possibly
+npm install olympus-cache
 ```
 
 ## <a name="server"/> Set up your Express server
