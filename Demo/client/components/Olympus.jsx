@@ -7,17 +7,17 @@ import "../styles/Olympus.css";
 const Olympus = () => {
 
   const [queryArray, setQueryArray] = useState({
-    query1: {queryString:  "{ test { query1 } }", resultString:"{ result { query1 } }",  mutationString:"{ mutation {query1}}", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed',  beenMutated:false},
-    query2: {queryString:  "{ test { query2 } }", resultString :"{ result { query2 } }", mutationString:"{ mutation {query2}}", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed',  beenMutated:false},
-    query3: {queryString:  "{ test { query3 } }", resultString:"{ result { query3 } }",  mutationString:"{ mutation {query3}}", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed',  beenMutated:false},
-    query4: {queryString:  "{ test { query4 } }", resultString:"{ result { query4 } }",  mutationString:"{ mutation {query4}}", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed',  beenMutated:false},
+    query1: {queryString:  "{ test { query1 } }", resultString:"{ result { query1 } }",  mutationString:"{ mutation {query1}}", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed',  beenMutated:false, cacheTime: null},
+    query2: {queryString:  "{ test { query2 } }", resultString :"{ result { query2 } }", mutationString:"{ mutation {query2}}", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed',  beenMutated:false, cacheTime: null},
+    query3: {queryString:  "{ test { query3 } }", resultString:"{ result { query3 } }",  mutationString:"{ mutation {query3}}", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed',  beenMutated:false, cacheTime: null},
+    query4: {queryString:  "{ test { query4 } }", resultString:"{ result { query4 } }",  mutationString:"{ mutation {query4}}", isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed',  beenMutated:false, cacheTime: null},
   });
 
   const defaultState = {
-    query1: {queryString:  "{ test { query1 } }", resultString:"{ result { query1 } }", mutationString:"{ mutation { query1 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
-    query2: {queryString:  "{ test { query2 } }", resultString:"{ result { query2 } }", mutationString:"{ mutation { query2 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
-    query3: {queryString:  "{ test { query3 } }", resultString:"{ result { query3 } }", mutationString:"{ mutation { query3 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
-    query4: {queryString:  "{ test { query4 } }", resultString:"{ result { query4 } }", mutationString:"{ mutation { query4 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false},
+    query1: {queryString:  "{ test { query1 } }", resultString:"{ result { query1 } }", mutationString:"{ mutation { query1 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false, cacheTime: null},
+    query2: {queryString:  "{ test { query2 } }", resultString:"{ result { query2 } }", mutationString:"{ mutation { query2 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false, cacheTime: null},
+    query3: {queryString:  "{ test { query3 } }", resultString:"{ result { query3 } }", mutationString:"{ mutation { query3 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false, cacheTime: null},
+    query4: {queryString:  "{ test { query4 } }", resultString:"{ result { query4 } }", mutationString:"{ mutation { query4 } }",isCached:false, localStorageTimer:10, redisTimer:60, cacheMessage: ' Cache Missed', beenMutated:false, cacheTime: null},
   }
   
   const [Query, setQuery] = useState({
@@ -31,6 +31,27 @@ const Olympus = () => {
      stateCopy[key].isCached = true;
      setQueryArray(stateCopy)
    }
+
+   const cacheTime = (key, value) => {
+    const stateCopy = {...queryArray};
+    stateCopy[key].cacheTime = value;
+    setQueryArray(stateCopy)
+  }
+
+   function normal(mu, sigma, nsamples){
+    if(!nsamples) nsamples = 6
+    if(!sigma) sigma = 1
+    if(!mu) mu=0
+
+    var run_total = 0
+    for(var i=0 ; i<nsamples ; i++){
+       run_total += Math.random()
+    }
+
+    return sigma*(run_total - nsamples/2)/(nsamples/2) + mu
+}
+
+
   const redisTimer = (key) => {
     const stateCopy = {...queryArray};
     stateCopy[key].redisTimer = stateCopy[key].redisTimer - 1
@@ -50,12 +71,20 @@ const Olympus = () => {
 
   }
 
+  
+
+
   const runQuery = () => {
     const copyArray = {...Query}
     copyArray.hasRun = true
     copyArray.demoResult = queryArray[Query.targetValue].resultString
     setQuery(copyArray);
    if(!queryArray[Query.targetValue].isCached) {
+    let t3 = normal(150, 18, 200)
+    t3 = t3.toFixed(3)
+    t3 = t3 + "ms Response"
+    cacheTime(Query.targetValue, t3)
+    console.log("here", queryArray[Query.targetValue])
     if (Query.targetValue !== "Query String Here") {
        isCached(Query.targetValue)
        console.log("queryArrayLocal", queryArray)
@@ -87,14 +116,29 @@ const Olympus = () => {
   } else {
     if(queryArray[Query.targetValue].localStorageTimer > 0) {
       cacheMessage(Query.targetValue, "From Local Storage")
+      const t1 = "<1ms Response Time"
+      cacheTime(Query.targetValue, t1)
+      console.log("here", queryArray[Query.targetValue])
     }
     else if(queryArray[Query.targetValue].redisTimer > 0){
       cacheMessage(Query.targetValue, "From Redis Cache")
+      let t2 = normal(10, 3, 200)
+       t2 = t2.toFixed(3)
+      t2 = t2 + "ms Response Time"
+      cacheTime(Query.targetValue, t2)
+      console.log("here", queryArray[Query.targetValue])
+
     }else if(queryArray[Query.targetValue].redisTimer === 0 ){
       cacheMessage(Query.targetValue, "Cache Missed")
+      let t3 = normal(150, 18, 200)
+      t3 = t3.toFixed(3)
+      t3 = t3 + "ms Response Time"
+      cacheTime(Query.targetValue, t3)
       const copyState = {...queryArray}
       copyState[Query.targetValue] = defaultState[Query.targetValue]
       setQueryArray(copyState);
+      console.log("here", queryArray[Query.targetValue])
+
     }
   }
 };
@@ -106,8 +150,11 @@ const Olympus = () => {
     const copyState = {...queryArray}
     copyState[Query.targetValue].beenMutated = true
     copyState[Query.targetValue].isCached = false
+    copyState[Query.targetValue].cacheTime = null
     copyState[Query.targetValue].localStorageTimer = 10
     copyState[Query.targetValue].redisTimer = 60
+    copyState[Query.targetValue].cacheMessage = ' Cache Missed'
+
     setQueryArray(copyState);
   };
 
@@ -130,15 +177,13 @@ const Olympus = () => {
 
   return (
     <div className="demo-container">
-      
+      <h2>DEMO OUR PRODUCT</h2>
       <div className="demo">
         <ul className="demo-instructions">
-        <h2>Try out our Demo</h2>
-          <li>Select a type of query and run the query</li>
-          <li>Note the performance improvement on subsequent requests</li>
-          <li>
-            Test out a simple mutation query, it passes through unaffected
-          </li>
+          <li> -Click a query in the drop down menu and click "Run Query"</li>
+          <li> Query will be stored in local storage for 10 seconds and Redis for 60 seconds </li>
+          <li> Running the query subsequently will improve response times in Result of Query </li>
+          <li>"TTL": Time to Live</li>
         </ul>
         <br></br>
         <div className='row'>
