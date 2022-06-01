@@ -31,7 +31,6 @@
 @media screen and (max-width:1240px) {
     .hamburger {
         display: block;
-        /* color:white */
     }
 
     .nav-menu {
@@ -47,7 +46,6 @@
         transition: 0.3s;
         z-index: -1;
         background: rgba(220,220,220, .9);
-        /* color: white */
     }
 
     .nav-menu.active {

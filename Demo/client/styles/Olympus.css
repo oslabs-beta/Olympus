@@ -6,9 +6,6 @@
     width: 100%;
     height: 100%;
     top: 40vh;
-    /* background-image: url('https://realgreekexperiences.com/wp-content/uploads/2020/10/The-Parthenon-in-the-Acropolis-Athens-Greece-768x576.jpg'); */
-
-
 }
 .demo-display {
     display: flex;
@@ -23,3 +20,7 @@
 .row {
     display:flex;
 }   
+
+.demo-instructions {
+    background-color: white;
+}
