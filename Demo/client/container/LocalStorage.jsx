@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-// import Timer from '../components/Timer.jsx'
 
 const LocalStorage = (props) => {
   const keeps = []
@@ -14,9 +13,8 @@ const LocalStorage = (props) => {
         <div 
         className='LocalStorage'
         style={{
-            overflow: 'Scroll',
             height: "52vh",
-            backgroundColor: "lightgray",
+            backgroundColor: "white",
             width: "25rem",
             borderRadius: "5px",
             border: "solid 1px black",

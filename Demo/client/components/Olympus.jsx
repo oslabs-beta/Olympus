@@ -26,7 +26,6 @@ const Olympus = () => {
     demoTest: '',
     demoResult:''
   })
-
    const isCached = (key) => {
      const stateCopy = {...queryArray};
      stateCopy[key].isCached = true;
@@ -54,15 +53,11 @@ const Olympus = () => {
 
 
   const redisTimer = (key) => {
-    // if(stateCopy[key].redisTimer === 0 ) return clearInterval()
-    // if(Query.beenMutated) return
-
     const stateCopy = {...queryArray};
     stateCopy[key].redisTimer = stateCopy[key].redisTimer - 1
     setQueryArray(stateCopy)
   }
   const localStorageTimer = (key) => {
-    // if(stateCopy[key].localStorageTimer === 0 ) return clearInterval()
     const stateCopy = {...queryArray};
     stateCopy[key].localStorageTimer = stateCopy[key].localStorageTimer - 1
     setQueryArray(stateCopy)
@@ -73,22 +68,13 @@ const Olympus = () => {
     const stateCopy = {...queryArray};
     stateCopy[key].cacheMessage = value
     setQueryArray(stateCopy)
-    // const queryCopy = {...Query};
-    // queryCopy[key].demoResult = Query.demoResult + value;
-    // setQuery(queryCopy)
+
   }
 
   
 
 
   const runQuery = () => {
-
-    // if(queryArray[Query.targetValue].beenMutated) { 
-    // const copyQueryArray = {...queryArray};
-    // copyQueryArray[Query.targetValue] = defaultState[Query.targetValue]
-    // setQueryArray(copyQueryArray)
-    // }
-
     const copyArray = {...Query}
     copyArray.hasRun = true
     copyArray.demoResult = queryArray[Query.targetValue].resultString
@@ -100,28 +86,14 @@ const Olympus = () => {
     cacheTime(Query.targetValue, t3)
     console.log("here", queryArray[Query.targetValue])
     if (Query.targetValue !== "Query String Here") {
-      // console.log('run query target value',Query.targetValue)
        isCached(Query.targetValue)
-
        console.log("queryArrayLocal", queryArray)
        console.log("QueryLocal", Query)
-
       let runInterval = setInterval(() => {
         localStorageTimer(Query.targetValue)
   
          if(queryArray[Query.targetValue].localStorageTimer <= 0 || queryArray[Query.targetValue].beenMutated) {
-          //  cacheMessage(Query.targetValue, "Redis Cache")
            clearInterval(runInterval)
-          //  const copyState = {...queryArray}
-          //  copyState[Query.targetValue].beenMutated = false
-          //  copyState[Query.targetValue].isCached = false
-          //  copyState[Query.targetValue].localStorageTimer = 10
-          //  copyState[Query.targetValue].redisTimer = 60
-          // //  copyState.isCached = true 
-          //  setQueryArray(copyState);
-          //  console.log('clearinterval state',queryArray)
-        
-       
         }
       }, 1000)
 
@@ -129,35 +101,16 @@ const Olympus = () => {
       console.log("QueryRedis", Query)
       let runRedis = setInterval(() => {
         redisTimer(Query.targetValue)
-        // console.log('run query target value',Query.targetValue)
-        // console.log("timeleft", queryArray[Query.targetValue].redisTimer)
-        // console.log("isLess", queryArray[Query.targetValue].redisTimer <= 0)
          if( queryArray[Query.targetValue].redisTimer <= 0 || queryArray[Query.targetValue].beenMutated) {
-          //  cacheMessage(Query.targetValue, "cache Missed")
-         
            clearInterval(runRedis)
-          //  const copyState = {...queryArray}
-          //  copyState[Query.targetValue].beenMutated = false
-          //  copyState[Query.targetValue].isCached = false
-          //  copyState[Query.targetValue].redisTimer = 60
-          //  copyState.isCached = true 
-          //  setQueryArray(copyState);
           const copyState = {...queryArray}
           copyState[Query.targetValue].beenMutated = false
           copyState[Query.targetValue].isCached = false
           copyState[Query.targetValue].localStorageTimer = 10
           copyState[Query.targetValue].redisTimer = 60
-
-         //  copyState.isCached = true 
           setQueryArray(copyState);
           console.log('clearinterval state',queryArray)
-
-       
         }
-
-        
-
-
       }, 1000)
     }
   } else {
@@ -200,6 +153,8 @@ const Olympus = () => {
     copyState[Query.targetValue].cacheTime = null
     copyState[Query.targetValue].localStorageTimer = 10
     copyState[Query.targetValue].redisTimer = 60
+    copyState[Query.targetValue].cacheMessage = ' Cache Missed'
+
     setQueryArray(copyState);
   };
 
@@ -222,14 +177,13 @@ const Olympus = () => {
 
   return (
     <div className="demo-container">
-      <h2>Demo our Olympus product</h2>
+      <h2>DEMO OUR PRODUCT</h2>
       <div className="demo">
         <ul className="demo-instructions">
-          <li>Click a </li>
-          <li>Note the performance improvement on subsequent requests</li>
-          <li>
-            Test out a simple mutation query, it passes through unaffected
-          </li>
+          <li> -Click a query in the drop down menu and click "Run Query"</li>
+          <li> Query will be stored in local storage for 10 seconds and Redis for 60 seconds </li>
+          <li> Running the query subsequently will improve response times in Result of Query </li>
+          <li>"TTL": Time to Live</li>
         </ul>
         <br></br>
         <div className='row'>
