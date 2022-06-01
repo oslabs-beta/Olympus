@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react';
 
 import LocalStorage from "../container/LocalStorage.jsx";
+import RedisCache from "../container/RedisStorage.jsx";
+
 import Querybox from "../container/querybox.jsx";
 import "../styles/Olympus.css";
 
@@ -21,7 +23,6 @@ const Olympus = () => {
   }
   
   const [Query, setQuery] = useState({
-    // beenMutated:false,
     hasRun: false, 
     targetValue: '',
     demoTest: '',
@@ -88,7 +89,7 @@ const Olympus = () => {
         // console.log('run query target value',Query.targetValue)
         // console.log("timeleft", queryArray[Query.targetValue].redisTimer)
         // console.log("isLess", queryArray[Query.targetValue].redisTimer <= 0)
-         if( queryArray[Query.targetValue].redisTimer <= 0 || queryArray[Query.targetValue].beenMutated ) {
+         if( queryArray[Query.targetValue].redisTimer <= 0 || queryArray[Query.targetValue].beenMutated) {
           //  cacheMessage(Query.targetValue, "cache Missed")
            clearInterval(runRedis)
            const copyState = {...queryArray}
@@ -106,7 +107,7 @@ const Olympus = () => {
     else if(queryArray[Query.targetValue].redisTimer > 0){
       cacheMessage(Query.targetValue, "From Redis Cache")
     }else if(queryArray[Query.targetValue].redisTimer === 0 ){
-      cacheMessage(Query.targetValue, " cache Missed")
+      cacheMessage(Query.targetValue, "Cache Missed")
       const copyState = {...queryArray}
       copyState[Query.targetValue] = defaultState[Query.targetValue]
       setQueryArray(copyState);
@@ -117,12 +118,16 @@ const Olympus = () => {
   const runMutation = () => {
     // mutation shows up in demo result query box 
     // Local storage timer, redis storage timer, message is reset 
+
     const queryCopy = {...Query};
     queryCopy.demoResult = queryArray[Query.targetValue].mutationString;
     setQuery(queryCopy);
     const copyState = {...queryArray}
+    if(copyState[Query.targetValue].isCached) { 
     copyState[Query.targetValue].beenMutated = true
+    copyState[Query.targetValue].isCached = false
     setQueryArray(copyState);
+    }
   };
 
   const dropDown = (e) => {    
@@ -163,6 +168,10 @@ const Olympus = () => {
           <LocalStorage
             queryArray = {queryArray}
             key='localstorage'
+          />
+           <RedisCache
+            queryArray = {queryArray}
+            key='redisCache'
           />
 
         </div>

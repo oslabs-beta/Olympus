@@ -6,11 +6,6 @@ import React,{useState} from 'react';
 
 const Querybox = (props) => {
    
-
-
-    // if the run button is clicked for the first time, console.log('cache miss')
-    // if the run button is clicked for the second time or more, console.log('cache hit')
-  
   return (
     <div className='column'>
         <div className="demo-display">
@@ -43,8 +38,6 @@ const Querybox = (props) => {
             >
               <h2>Olympus Demo Result of Query</h2>
               {props.Query.hasRun ? (<p>{props.Query.demoResult} {props.queryArray[props.Query.targetValue].cacheMessage}</p>) : (<p>{''}</p>)}
-              {/* {props.Query.hasRun ? props.queryArray[Query.targetValue].beenMutated ? (<p>{props.Query.demoResult} {props.queryArray[props.Query.targetValue].cacheMessage}</p>) : (<p>{''}</p>) : (<p>{''}</p>)} */}
-              
             </div>
           </div>
         </div>
