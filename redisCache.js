@@ -1,6 +1,5 @@
 const axios = require("axios");
 const { parse } = require("graphql/language/parser");
-
 class RedisCache {
   constructor(redisClient, expiration = 3600) {
     this.redisClient = redisClient;
@@ -44,7 +43,7 @@ class RedisCache {
                 method: 'post',
                 headers : headers,
                 data: query})
-                        
+              // const norm = this.normalize(result.data)
             // set redis layer 
             
             //if mutation do not run redisClient.set or redisClient.expire
@@ -52,8 +51,18 @@ class RedisCache {
               // parse all keys in redis layer
               //remove matching mutation/query pairs
             if(parsed.operationType == "query") {
-            this.redisClient.set(JSON.stringify(query), JSON.stringify(result.data))
-            this.redisClient.expire(JSON.stringify(query), this.expiration)
+              // console.log("queryhere", this.normalize(query))
+              let norm = this.normalize(result.data)
+              // console.log("norm", norm)
+              const key = `${parsed.schemaType}.${Object.keys(parsed.args)[0]}.${Object.values(parsed.args)[0]}`
+              // console.log(key)
+              // console.log(norm)
+              // let unnorm = this.denormalize(norm)
+              // console.log("unnorm", unnorm)
+              
+
+            // this.redisClient.set(JSON.stringify(query), JSON.stringify(result.data))
+            // this.redisClient.expire(JSON.stringify(query), this.expiration)
             }
             res.locals.result = JSON.stringify(result.data)
             res.locals.operationType = parsed.operationType

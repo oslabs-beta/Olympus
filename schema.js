@@ -42,12 +42,17 @@ const RootQuery = new GraphQLObjectType({
         book: {
             type: BookType,
             //argument passed by the user while making the query
-            args: { id: { type: GraphQLID } },
+            args: { id: { type: new GraphQLList(GraphQLID)} },
             resolve(parent, args) {
                 //Here we define how to get data from database source
                 
                 //this will return the book with id passed in argument by the user
-                return fakeBookDatabase.find((item) => { return item.id == args.id});
+                let result = []
+                for(let i = 0; i<args.id.length; i++) {
+                    const id = args.id[i]
+                    result.push(fakeBookDatabase.find((item) => { return item.id == id}))
+                }
+                return result
             }
         },
         allBooks: {
@@ -58,10 +63,10 @@ const RootQuery = new GraphQLObjectType({
         },
         account: {
             type: accountType,
-            args: {account_id: {type: GraphQLInt}},
+            args:  {account_id: {type: GraphQLInt}},
             async resolve(parent, args) {
-                const whacky = await Accounts.findOne({account_id: args.account_id})
-                return whacky      
+                return await Accounts.findOne({account_id: args.account_id})
+                     
             }
         }
     }
@@ -79,8 +84,7 @@ const mutation = new GraphQLObjectType({
                 products: {type: new GraphQLList(GraphQLString)}        
             },
             async resolve(parent,args){
-                const data = await Accounts.create({account_id: args.account_id, limit: args.limit, products: args.products})
-                return data
+                return await Accounts.create({account_id: args.account_id, limit: args.limit, products: args.products})
             }
         },
         deleteAccount:{
@@ -91,8 +95,8 @@ const mutation = new GraphQLObjectType({
                 products: {type: new GraphQLList(GraphQLString)}        
             },
             async resolve(parent, args){
-                const data = await Accounts.findOneAndDelete({...args})
-                return data
+                return await Accounts.findOneAndDelete({...args})
+                
             }
         },
     }

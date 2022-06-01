@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const endPoint = document.createElement('input');
   const query = document.createElement('input');
