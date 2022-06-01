@@ -4,7 +4,7 @@
   >
 </p>
 
-<p align="center">Welcome to [Olympus](https://github.com/oslabs-beta/olympus)</p>
+<p align="center">Welcome to <a href="https://github.com/oslabs-beta/olympus" target="_blank">Olympus</a></p>
 
 # [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]() [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE) [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)]() [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/olympus-caching/)
 
