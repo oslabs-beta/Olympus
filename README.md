@@ -1,6 +1,6 @@
 <p align="center">
   <img 
-    src="OlympusHouse.png"
+    src="/Logos/OlympusHouse.png"
   >
 </p>
 
