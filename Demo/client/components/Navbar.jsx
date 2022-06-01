@@ -18,7 +18,7 @@ const Navbar = () => {
             </li>
             <li>
                  {/* <a href='/' style={click ? {color:'white'}:{color:'black'}}>NPM Download</a> */}
-                 <a href='/' style={{color:'black'}}>NPM Download</a>
+                 <a href='https://www.npmjs.com/package/olympus-cache' target={'_blank'} style={{color:'black'}}>NPM Download</a>
 
             </li>
             <li>

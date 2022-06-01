@@ -15,7 +15,7 @@ const RedisStorage = (props) => {
         className='LocalStorage'
         style={{
             height: "52vh",
-            backgroundColor: "white",
+            backgroundColor: "grey",
             width: "25rem",
             borderRadius: "5px",
             border: "solid 1px black",

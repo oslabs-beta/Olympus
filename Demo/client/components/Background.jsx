@@ -1,13 +1,11 @@
-// import statue from '../assets/Statue.jpeg'
-
-
 import React from 'react'
+import pillars from '../assets/pillars.jpg'
 import '../styles/Background.css'
 
 const Background = () => {
   return (
-    <div>
-        {/* <img className='demo-background' src={statue} />  */}
+    <div className='background'>
+        <img className='demo-background' src={pillars} /> 
     </div>
   )
 }

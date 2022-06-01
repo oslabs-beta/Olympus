@@ -1,12 +1,12 @@
 <p align="center">
   <img 
-    src="OlympusHouse.png"
+    src="/Logos/OlympusHouse.png"
   >
 </p>
 
 <h1 align="center">Welcome to <a href="https://github.com/oslabs-beta/olympus" target="_blank">Olympus</a></h1>
 
-# [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]() [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE) [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)]() [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/olympus-caching/)
+# [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]() [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE) [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/olympus-cache) [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/olympus-caching/)
 
 Olympus is a hybrid caching library for GraphQL written for Javascript Express
 
@@ -31,14 +31,14 @@ Check out [our demo site](https://github.com/oslabs-beta/olympus) to see what Ol
 Install our Express library via npm
 
 ```bash
-npm install olympus // update this name possibly
+npm install olympus-cache
 ```
 
 ## <a name="server"/> Set up your Express server
 1. Import our Redis Middleware
 
 ```javascript
-const RedisCache = require('./redisCache'); // pretty sure we change the part after require to 'olympus'
+const RedisCache = require('olympus-server');
 ```
 
 2. Set up your Redis Server
@@ -50,7 +50,7 @@ const redisClient = redis.createClient({
     port: 6379,
   });
 redisClient.connect();
-const redisInstance = new RedisCache(redisClient);
+const redisInstance = new RedisCache(redisClient, '//insert url with /graphql endpoint here');
 
 // REQUIRED
 app.use(express.json())
@@ -66,11 +66,13 @@ app.use('/olympus', redisInstance.cacheResponse, (req, res) => {
 app.use('/graphql', graphqlHTTP({schema, graphiql: true}));
 ```
 
+4. Don't forget to run the command line 'redis-server' on the machine with your server
+
 ## <a name="queries"/> Making Queries
 1. Import `Olympus` in files that make GraphQL queries
 
 ```javascript
-import { Olympus } from 'olympus'; // MIGHT NEED TO CHANGE THIS
+import { Olympus } from 'olympus-fetch';
 ```
 
 2. Olympus is designed to make it easy to switch over from the Fetch API. All you have to do is replace the word `fetch` with the word `Olympus`. Remove the endpoint argument, and adjust the 'body' key inside the second arugment.
