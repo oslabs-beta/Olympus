@@ -5,7 +5,6 @@ import React,{useState} from 'react';
 
 
 const Querybox = (props) => {
-   
   return (
     <div className='column'>
         <div className="demo-display">
@@ -37,7 +36,7 @@ const Querybox = (props) => {
               }}
             >
               <h2>Olympus Demo Result of Query</h2>
-              {props.Query.hasRun ? (<p>{props.Query.demoResult} {props.queryArray[props.Query.targetValue].cacheMessage}</p>) : (<p>{''}</p>)}
+              {props.Query.hasRun ? (<p>{props.Query.demoResult} <br></br>  {props.queryArray[props.Query.targetValue].cacheMessage} <br></br> {props.queryArray[props.Query.targetValue].cacheTime}  </p>) : (<p>{''}</p>)}
             </div>
           </div>
         </div>

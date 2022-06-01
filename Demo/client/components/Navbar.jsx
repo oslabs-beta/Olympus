@@ -13,7 +13,8 @@ const Navbar = () => {
         <ul className={click ? 'nav-menu active': 'nav-menu'}>
             <li>
                 {/* {click ? (<Link to ='/' style={{color:'white'}}>Medium</Link>): (<Link to ='/' >Medium</Link>)} */}
-                <Link to ='/' >Medium</Link>
+                {/* <Link to ='https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d' >Medium</Link> */}
+                <a href='https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d' target={'_blank'} style={{color:'black'}}>Medium</a>
             </li>
             <li>
                  {/* <a href='/' style={click ? {color:'white'}:{color:'black'}}>NPM Download</a> */}
