@@ -1,5 +1,21 @@
-.infoBox {
+.infoBox { 
+    height: 850px;
+    background-color: rgb(255, 255, 254, .5);
+    width: 90vh;
+    border-radius: 5px;
+    margin: auto;
+    text-align: center;
     align-items: center;
     align-self: center;
-    text-align: center;
+    justify-content: center;
+}
+
+.infoBox h1 {
+    font-size: 50px;
+}
+
+.infoBox p {
+    text-align: center ;
+    color: black;
+    font-size: 25px;
 }

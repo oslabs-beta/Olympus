@@ -1,8 +1,5 @@
-import { Query } from 'mongoose';
+// import { Query } from 'mongoose';
 import React,{useState} from 'react';
-
-
-
 const Querybox = (props) => {
   return (
     <div className='column'>
@@ -11,7 +8,7 @@ const Querybox = (props) => {
             <div
               style={{
                 height: "25vh",
-                backgroundColor: "white",
+                backgroundColor: "grey",
                 width: "25rem",
                 borderRadius: "5px",
                 border: "solid 1px black",
@@ -24,7 +21,7 @@ const Querybox = (props) => {
             <div
               style={{    
                 height: "25vh",
-                backgroundColor: "white",
+                backgroundColor: "grey",
                 width: "25rem",
                 borderRadius: "5px",
                 border: "solid 1px black",

@@ -80,7 +80,7 @@ const Olympus = () => {
     copyArray.demoResult = queryArray[Query.targetValue].resultString
     setQuery(copyArray);
    if(!queryArray[Query.targetValue].isCached) {
-    let t3 = normal(150, 18, 200)
+    let t3 = normal(150, 50, 200)
     t3 = t3.toFixed(3)
     t3 = t3 + "ms Response"
     cacheTime(Query.targetValue, t3)
@@ -122,7 +122,7 @@ const Olympus = () => {
     }
     else if(queryArray[Query.targetValue].redisTimer > 0){
       cacheMessage(Query.targetValue, "From Redis Cache")
-      let t2 = normal(10, 3, 200)
+      let t2 = normal(10, 6, 200)
        t2 = t2.toFixed(3)
       t2 = t2 + "ms Response Time"
       cacheTime(Query.targetValue, t2)
@@ -130,7 +130,7 @@ const Olympus = () => {
 
     }else if(queryArray[Query.targetValue].redisTimer === 0 ){
       cacheMessage(Query.targetValue, "Cache Missed")
-      let t3 = normal(150, 18, 200)
+      let t3 = normal(150, 50, 200)
       t3 = t3.toFixed(3)
       t3 = t3 + "ms Response Time"
       cacheTime(Query.targetValue, t3)
@@ -174,16 +174,17 @@ const Olympus = () => {
     return window.location.reload();
   }
  
-
   return (
     <div className="demo-container">
       <h2>DEMO OUR PRODUCT</h2>
+      <br></br>
       <div className="demo">
         <ul className="demo-instructions">
-          <li> -Click a query in the drop down menu and click "Run Query"</li>
-          <li> Query will be stored in local storage for 10 seconds and Redis for 60 seconds </li>
-          <li> Running the query subsequently will improve response times in Result of Query </li>
-          <li>"TTL": Time to Live</li>
+          <p className='info'> Click a query in the drop down menu and click "Run Query"</p>
+          <li className='info'> Query will be stored in local storage for 10 seconds and Redis for 60 seconds </li>
+          <li className='info'> Running the query subsequently will improve response times in Result of Query </li>
+          <li className='info'> TTL* = Time to Live </li>
+          {/* <br></br> */}
         </ul>
         <br></br>
         <div className='row'>
