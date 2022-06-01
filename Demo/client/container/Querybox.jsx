@@ -1,6 +1,5 @@
 import { Query } from 'mongoose';
 import React,{useState} from 'react';
-// import '../styles/Querybox.css'
 
 
 
@@ -11,11 +10,9 @@ const Querybox = (props) => {
         <div className="demo-display">
           <div>
             <div
-              className="scroll-view"
               style={{
-                overflow: "scroll",
                 height: "25vh",
-                backgroundColor: "lightgray",
+                backgroundColor: "white",
                 width: "25rem",
                 borderRadius: "5px",
                 border: "solid 1px black",
@@ -26,11 +23,9 @@ const Querybox = (props) => {
             </div>
             <br></br>
             <div
-              className="scroll-view"
               style={{    
-                overflow: "scroll",
                 height: "25vh",
-                backgroundColor: "lightgray",
+                backgroundColor: "white",
                 width: "25rem",
                 borderRadius: "5px",
                 border: "solid 1px black",
