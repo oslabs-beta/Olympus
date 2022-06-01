@@ -4,7 +4,7 @@
   >
 </p>
 
-# Welcome to [Olympus](https://github.com/oslabs-beta/olympus) &middot; [![License badge](https://img.shields.io/badge/license-MIT-informational)](https://github.com/oslabs-beta/olympus/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]() [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/olympus-caching/)
+# Welcome to [Olympus](https://github.com/oslabs-beta/olympus) &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]() [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE) [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/olympus-caching/)
 
 
 Olympus is a hybrid caching library for GraphQL written for Javascript Express
