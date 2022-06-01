@@ -38,7 +38,7 @@ npm install olympus // update this name possibly
 1. Import our Redis Middleware
 
 ```javascript
-const RedisCache = require('./redisCache'); // pretty sure we change the part after require to 'olympus'
+const RedisCache = require('olympus-server');
 ```
 
 2. Set up your Redis Server
@@ -72,7 +72,7 @@ app.use('/graphql', graphqlHTTP({schema, graphiql: true}));
 1. Import `Olympus` in files that make GraphQL queries
 
 ```javascript
-import { Olympus } from 'olympus'; // MIGHT NEED TO CHANGE THIS
+import { Olympus } from 'olympus-fetch';
 ```
 
 2. Olympus is designed to make it easy to switch over from the Fetch API. All you have to do is replace the word `fetch` with the word `Olympus`. Remove the endpoint argument, and adjust the 'body' key inside the second arugment.
