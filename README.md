@@ -50,7 +50,7 @@ const redisClient = redis.createClient({
     port: 6379,
   });
 redisClient.connect();
-const redisInstance = new RedisCache(redisClient);
+const redisInstance = new RedisCache(redisClient, '//insert url with /graphql endpoint here');
 
 // REQUIRED
 app.use(express.json())
@@ -65,6 +65,8 @@ app.use('/olympus', redisInstance.cacheResponse, (req, res) => {
 });
 app.use('/graphql', graphqlHTTP({schema, graphiql: true}));
 ```
+
+4. Don't forget to run the command line 'redis-server' on the machine with your server
 
 ## <a name="queries"/> Making Queries
 1. Import `Olympus` in files that make GraphQL queries
