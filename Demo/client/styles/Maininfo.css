@@ -1,7 +1,7 @@
 .infoBox { 
-    height: 1000px;
+    height: 100%;
     background-color: rgb(255, 255, 254, .5);
-    width: 90vh;
+    width: 55%;
     border-radius: 5px;
     margin: auto;
     text-align: center;
@@ -11,11 +11,12 @@
 }
 
 .infoBox h1 {
-    font-size: 50px;
+    font-size: 2rem;
 }
 
 .infoBox p {
     text-align: center ;
     color: black;
-    font-size: 25px;
+    font-size: 1.25rem;
 }
+

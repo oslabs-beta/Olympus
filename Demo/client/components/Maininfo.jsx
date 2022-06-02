@@ -4,8 +4,8 @@ import '../styles/Maininfo.css'
 
 const Maininfo = () => {
     return (
-        <div>
-            <div className='infoBox'>
+        <div className='infoBox'>
+            <div >
               <h1>What is Olympus?</h1>
                 <p> An intuitive hybrid caching solution for GraphQL.</p>
                 <br></br>
