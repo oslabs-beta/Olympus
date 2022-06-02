@@ -6,6 +6,7 @@ const RedisStorage = (props) => {
   for(let i = 0; i < entries.length; i++) {
     if(entries[i]["isCached"] &&  entries[i]["redisTimer"] > 0) {
      keeps.push(<p>"result": {entries[i]["resultString"]}, "TTL": {entries[i]["redisTimer"]}</p>)
+     keeps.push(<br></br>)
     }
   }
            
