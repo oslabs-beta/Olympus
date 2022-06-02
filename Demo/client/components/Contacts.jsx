@@ -1,12 +1,12 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import '../styles/contacts.css'
+import '../styles/Contacts.css'
 import Bryan from '../assets/BKim.png';
 import Marshall from '../assets/MKim.png';
 import Adam from '../assets/ALang.png';
 import Kevin from '../assets/KLe.png';
-import LinkedIn from '../assets/Linkedin.png';
-import GitHub from '../assets/GitHub.png';
+import LinkedIn from '../assets/LinkedIn.png';
+import GitHub from '../assets/Github.png';
 
 const Contacts = () => {
     return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import '../styles/maininfo.css'
+import '../styles/Maininfo.css'
 
 const Maininfo = () => {
     return (
