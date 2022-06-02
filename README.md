@@ -4,7 +4,7 @@
   >
 </p>
 
-<h1 align="center">Welcome to <a href="http://olympus.cache.demo.s3-website-us-west-1.amazonaws.com/" target="_blank">Olympus</a></h1>
+<h1 align="center">Welcome to <a href="http://olympuscache.com" target="_blank">Olympus</a></h1>
 
 # [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)]() [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE) [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/olympus-cache) [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@marshallkkim29/olympus-an-intuitive-hybrid-caching-solution-for-graphql-b18a08c5045d) [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/olympus-caching/)
 
@@ -15,7 +15,7 @@ Olympus is a hybrid caching library for GraphQL written for Javascript Express
 - Integrates with any server running on Express/Node.js.
 - Includes caching with Redis and in the browser's local storage.
 
-Check out [our demo site](http://olympus.cache.demo.s3-website-us-west-1.amazonaws.com/) to see what Olympus can do.
+Check out [our demo site](http://olympuscache.com) to see what Olympus can do.
 
 ---
 ## Table of Contents
