@@ -6,6 +6,8 @@ const LocalStorage = (props) => {
   for(let i = 0; i < entries.length; i++) {
     if(entries[i]["isCached"] && entries[i]["localStorageTimer"] > 0) {
      keeps.push(<p>"result": {entries[i]["resultString"]}, "TTL": {entries[i]["localStorageTimer"]}</p>)
+     keeps.push(<br></br>)
+
     }
   }
   return (
