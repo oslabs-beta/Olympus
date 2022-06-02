@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../components/Navbar.jsx'
-import Video from '../components/video.jsx'
+import Video from '../components/Video.jsx'
 import Maininfo from '../components/Maininfo.jsx'
 
 const Home = () => {

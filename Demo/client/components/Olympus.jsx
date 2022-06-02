@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import LocalStorage from "../container/LocalStorage.jsx";
 import RedisCache from "../container/RedisStorage.jsx";
-import Querybox from "../container/querybox.jsx";
+import Querybox from "../container/Querybox.jsx";
 import "../styles/Olympus.css";
 
 const Olympus = () => {
