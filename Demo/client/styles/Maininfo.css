@@ -1,22 +1,27 @@
-.infoBox { 
-    height: 100%;
-    background-color: rgb(255, 255, 254, .5);
-    width: 55%;
-    border-radius: 5px;
-    margin: auto;
-    text-align: center;
-    align-items: center;
-    align-self: center;
-    justify-content: center;
+.infoBox {
+  height: 100%;
+  background-color: rgb(255, 255, 254, 0.5);
+  width: 55%;
+  border-radius: 15px;
+  margin: auto;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
 }
 
 .infoBox h1 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 .infoBox p {
-    text-align: center ;
-    color: black;
-    font-size: 1.25rem;
+  text-align: center;
+  color: black;
+  font-size: 1.25rem;
 }
 
+@media screen and (max-width: 980px) {
+  .infoBox {
+    width: 65%;
+  }
+}
