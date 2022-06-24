@@ -1,6 +1,6 @@
 import React from 'react'
-import Contacts from '../components/Contacts.jsx'
-import Navbar from '../components/Navbar.jsx'
+import Contacts from '../components/Contacts'
+import Navbar from '../components/Navbar'
 
 const Team = () => {
   return (

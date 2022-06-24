@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import '../styles/Contacts.css'
 import Bryan from '../assets/BKim.png';
 import Marshall from '../assets/MKim.png';
