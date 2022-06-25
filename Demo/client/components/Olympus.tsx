@@ -4,6 +4,8 @@ import RedisCache from "../container/RedisStorage.js";
 import Querybox from "../container/Querybox.js";
 import "../styles/Olympus.css";
 
+
+
 const Olympus = () => {
   const [queryArray, setQueryArray] = useState({
     query1: {
@@ -111,19 +113,19 @@ const Olympus = () => {
     demoTest: "",
     demoResult: "",
   });
-  const isCached = (key) => {
+  const isCached = (key:string) => {
     const stateCopy = { ...queryArray };
     stateCopy[key].isCached = true;
     setQueryArray(stateCopy);
   };
 
-  const cacheTime = (key, value) => {
+  const cacheTime = (key:string, value:string) => {
     const stateCopy = { ...queryArray };
     stateCopy[key].cacheTime = value;
     setQueryArray(stateCopy);
   };
 
-  function normal(mu, sigma, nsamples) {
+  function normal(mu:number, sigma:number, nsamples:number) {
     if (!nsamples) nsamples = 6;
     if (!sigma) sigma = 1;
     if (!mu) mu = 0;
@@ -147,7 +149,7 @@ const Olympus = () => {
     setQueryArray(stateCopy);
   };
 
-  const cacheMessage = (key, value) => {
+  const cacheMessage = (key, value:string) => {
     const stateCopy = { ...queryArray };
     stateCopy[key].cacheMessage = value;
     setQueryArray(stateCopy);
@@ -201,19 +203,19 @@ const Olympus = () => {
     } else {
       if (queryArray[Query.targetValue].localStorageTimer > 0) {
         cacheMessage(Query.targetValue, "From Local Storage");
-        const t1 = "<1 ms Response Time";
+        const t1: number|string = "<1 ms Response Time";
         cacheTime(Query.targetValue, t1);
         console.log("here", queryArray[Query.targetValue]);
       } else if (queryArray[Query.targetValue].redisTimer > 0) {
         cacheMessage(Query.targetValue, "From Redis Cache");
-        let t2 = normal(10, 6, 200);
+        let t2: number|string = normal(10, 6, 200);
         t2 = t2.toFixed(3);
         t2 = t2 + " ms Response Time";
         cacheTime(Query.targetValue, t2);
         console.log("here", queryArray[Query.targetValue]);
       } else if (queryArray[Query.targetValue].redisTimer === 0) {
         cacheMessage(Query.targetValue, "Cache Missed");
-        let t3 = normal(150, 50, 200);
+        let t3: number|string = normal(150, 50, 200);
         t3 = t3.toFixed(3);
         t3 = t3 + " ms Response Time";
         cacheTime(Query.targetValue, t3);
@@ -238,8 +240,8 @@ const Olympus = () => {
     copyState[Query.targetValue].cacheMessage = " Cache Missed";
     setQueryArray(copyState);
   };
-
-  const dropDown = (e) => {
+  //added event listener REACT.CHANGEEVENT  no sure how it works. 
+  const dropDown = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== "Query String Here") {
       // console.log(e.target.value)
       console.log(Query);
