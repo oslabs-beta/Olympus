@@ -1,6 +1,6 @@
 // import { Query } from 'mongoose';
 import React,{useState} from 'react';
-const Querybox = (props) => {
+const Querybox = (props:any) => {
   return (
     <div className='column'>
         <div className="demo-display">
