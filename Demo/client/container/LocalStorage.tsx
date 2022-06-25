@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 
-const RedisStorage = (props) => {
+const LocalStorage = (props:any) => {
   const keeps = []
-  const entries = Object.values(props.queryArray)
+  const entries:any = Object.values(props.queryArray)
   for(let i = 0; i < entries.length; i++) {
-    if(entries[i]["isCached"] &&  entries[i]["redisTimer"] > 0) {
-     keeps.push(<p>"result": {entries[i]["resultString"]}, "TTL": {entries[i]["redisTimer"]}</p>)
+    if(entries[i]["isCached"] && entries[i]["localStorageTimer"] > 0) {
+     keeps.push(<p>"result": {entries[i]["resultString"]}, "TTL": {entries[i]["localStorageTimer"]}</p>)
      keeps.push(<br></br>)
+
     }
   }
-           
   return (
     <div>
         <div 
@@ -22,11 +22,11 @@ const RedisStorage = (props) => {
             border: "solid 1px black",
         }}
         >
-            <h2>Redis Cache</h2>
+            <h2>Local Storage</h2>
             {keeps}
         </div>
     </div>
   )
 }
 
-export default RedisStorage
+export default LocalStorage

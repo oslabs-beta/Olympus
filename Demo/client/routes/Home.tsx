@@ -1,7 +1,7 @@
 import React from 'react'
-import Navbar from '../components/Navbar.jsx'
-import Video from '../components/Video.jsx'
-import Maininfo from '../components/Maininfo.jsx'
+import Navbar from '../components/Navbar'
+import Video from '../components/Video'
+import Maininfo from '../components/Maininfo'
 
 const Home = () => {
   return (

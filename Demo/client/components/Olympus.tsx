@@ -1,8 +1,55 @@
-import React, { useState, useEffect } from "react";
-import LocalStorage from "../container/LocalStorage.jsx";
-import RedisCache from "../container/RedisStorage.jsx";
-import Querybox from "../container/Querybox.jsx";
+import React, { FC,useState, useEffect, ChangeEvent } from "react";
+import LocalStorage from "../container/LocalStorage";
+import RedisCache from "../container/RedisStorage";
+import Querybox from "../container/Querybox";
 import "../styles/Olympus.css";
+
+type bigQuery ={
+  query1: {
+    queryString: string;
+    resultString: string;
+    mutationString: string;
+    isCached: boolean;
+    localStorageTimer: number;
+    redisTimer: number;
+    cacheMessage: string;
+    beenMutated: boolean;
+    cacheTime: null;
+};
+query2: {
+  queryString: string;
+    resultString: string;
+    mutationString: string;
+    isCached: boolean;
+    localStorageTimer: number;
+    redisTimer: number;
+    cacheMessage: string;
+    beenMutated: boolean;
+    cacheTime: null;
+};
+query3: {
+  queryString: string;
+    resultString: string;
+    mutationString: string;
+    isCached: boolean;
+    localStorageTimer: number;
+    redisTimer: number;
+    cacheMessage: string;
+    beenMutated: boolean;
+    cacheTime: null;
+};
+query4: {
+  queryString: string;
+    resultString: string;
+    mutationString: string;
+    isCached: boolean;
+    localStorageTimer: number;
+    redisTimer: number;
+    cacheMessage: string;
+    beenMutated: boolean;
+    cacheTime: null;
+};
+}
 
 const Olympus = () => {
   const [queryArray, setQueryArray] = useState({
@@ -105,25 +152,28 @@ const Olympus = () => {
     },
   };
 
+
   const [Query, setQuery] = useState({
     hasRun: false,
     targetValue: "",
     demoTest: "",
     demoResult: "",
   });
-  const isCached = (key) => {
-    const stateCopy = { ...queryArray };
-    stateCopy[key].isCached = true;
+  const isCached = (key:string):void => {
+    const stateCopy:bigQuery = { ...queryArray };
+    // const temp = stateCopy[key as keyof bigQuery]
+    stateCopy[key as keyof bigQuery].isCached = true;
+    setQueryArray(stateCopy);
+  };
+  //value here shouldn't be any
+  //tried null|number|string didnt work ??? might as well put any i guess
+  const cacheTime = (key:string, value: any):void => {
+    const stateCopy:bigQuery = { ...queryArray };
+    stateCopy[key as keyof bigQuery].cacheTime = value;
     setQueryArray(stateCopy);
   };
 
-  const cacheTime = (key, value) => {
-    const stateCopy = { ...queryArray };
-    stateCopy[key].cacheTime = value;
-    setQueryArray(stateCopy);
-  };
-
-  function normal(mu, sigma, nsamples) {
+  function normal(mu:number, sigma:number, nsamples:number) {
     if (!nsamples) nsamples = 6;
     if (!sigma) sigma = 1;
     if (!mu) mu = 0;
@@ -136,34 +186,34 @@ const Olympus = () => {
     return (sigma * (run_total - nsamples / 2)) / (nsamples / 2) + mu;
   }
 
-  const redisTimer = (key) => {
+  const redisTimer = (key:string):void => {
     const stateCopy = { ...queryArray };
-    stateCopy[key].redisTimer = stateCopy[key].redisTimer - 1;
+    stateCopy[key as keyof bigQuery].redisTimer = stateCopy[key as keyof bigQuery].redisTimer - 1;
     setQueryArray(stateCopy);
   };
-  const localStorageTimer = (key) => {
+  const localStorageTimer = (key:string):void => {
     const stateCopy = { ...queryArray };
-    stateCopy[key].localStorageTimer = stateCopy[key].localStorageTimer - 1;
+    stateCopy[key as keyof bigQuery].localStorageTimer = stateCopy[key as keyof bigQuery].localStorageTimer - 1;
     setQueryArray(stateCopy);
   };
 
-  const cacheMessage = (key, value) => {
+  const cacheMessage = (key:string, value:string):void => {
     const stateCopy = { ...queryArray };
-    stateCopy[key].cacheMessage = value;
+    stateCopy[key as keyof bigQuery].cacheMessage = value;
     setQueryArray(stateCopy);
   };
 
   const runQuery = () => {
     const copyArray = { ...Query };
     copyArray.hasRun = true;
-    copyArray.demoResult = queryArray[Query.targetValue].resultString;
+    copyArray.demoResult = queryArray[Query.targetValue as keyof bigQuery].resultString;
     setQuery(copyArray);
-    if (!queryArray[Query.targetValue].isCached) {
-      let t3 = normal(150, 50, 200);
+    if (!queryArray[Query.targetValue as keyof bigQuery].isCached) {
+      let t3: string|number = normal(150, 50, 200);
       t3 = t3.toFixed(3);
       t3 = t3 + "ms Response";
       cacheTime(Query.targetValue, t3);
-      console.log("here", queryArray[Query.targetValue]);
+      console.log("here", queryArray[Query.targetValue as keyof bigQuery]);
       if (Query.targetValue !== "Query String Here") {
         isCached(Query.targetValue);
         console.log("queryArrayLocal", queryArray);
@@ -172,8 +222,8 @@ const Olympus = () => {
           localStorageTimer(Query.targetValue);
 
           if (
-            queryArray[Query.targetValue].localStorageTimer <= 0 ||
-            queryArray[Query.targetValue].beenMutated
+            queryArray[Query.targetValue as keyof bigQuery].localStorageTimer <= 0 ||
+            queryArray[Query.targetValue as keyof bigQuery].beenMutated
           ) {
             clearInterval(runInterval);
           }
@@ -184,70 +234,70 @@ const Olympus = () => {
         let runRedis = setInterval(() => {
           redisTimer(Query.targetValue);
           if (
-            queryArray[Query.targetValue].redisTimer <= 0 ||
-            queryArray[Query.targetValue].beenMutated
+            queryArray[Query.targetValue as keyof bigQuery].redisTimer <= 0 ||
+            queryArray[Query.targetValue as keyof bigQuery].beenMutated
           ) {
             clearInterval(runRedis);
             const copyState = { ...queryArray };
-            copyState[Query.targetValue].beenMutated = false;
-            copyState[Query.targetValue].isCached = false;
-            copyState[Query.targetValue].localStorageTimer = 10;
-            copyState[Query.targetValue].redisTimer = 60;
+            copyState[Query.targetValue as keyof bigQuery].beenMutated = false;
+            copyState[Query.targetValue as keyof bigQuery].isCached = false;
+            copyState[Query.targetValue as keyof bigQuery].localStorageTimer = 10;
+            copyState[Query.targetValue as keyof bigQuery].redisTimer = 60;
             setQueryArray(copyState);
             console.log("clearinterval state", queryArray);
           }
         }, 1000);
       }
     } else {
-      if (queryArray[Query.targetValue].localStorageTimer > 0) {
+      if (queryArray[Query.targetValue as keyof bigQuery].localStorageTimer > 0) {
         cacheMessage(Query.targetValue, "From Local Storage");
-        const t1 = "<1 ms Response Time";
+        const t1: number|string = "<1 ms Response Time";
         cacheTime(Query.targetValue, t1);
-        console.log("here", queryArray[Query.targetValue]);
-      } else if (queryArray[Query.targetValue].redisTimer > 0) {
+        console.log("here", queryArray[Query.targetValue as keyof bigQuery]);
+      } else if (queryArray[Query.targetValue as keyof bigQuery].redisTimer > 0) {
         cacheMessage(Query.targetValue, "From Redis Cache");
-        let t2 = normal(10, 6, 200);
+        let t2: number|string = normal(10, 6, 200);
         t2 = t2.toFixed(3);
         t2 = t2 + " ms Response Time";
         cacheTime(Query.targetValue, t2);
-        console.log("here", queryArray[Query.targetValue]);
-      } else if (queryArray[Query.targetValue].redisTimer === 0) {
+        console.log("here", queryArray[Query.targetValue as keyof bigQuery]);
+      } else if (queryArray[Query.targetValue as keyof bigQuery].redisTimer === 0) {
         cacheMessage(Query.targetValue, "Cache Missed");
-        let t3 = normal(150, 50, 200);
+        let t3: number|string = normal(150, 50, 200);
         t3 = t3.toFixed(3);
         t3 = t3 + " ms Response Time";
         cacheTime(Query.targetValue, t3);
         const copyState = { ...queryArray };
-        copyState[Query.targetValue] = defaultState[Query.targetValue];
+        copyState[Query.targetValue as keyof bigQuery] = defaultState[Query.targetValue as keyof bigQuery];
         setQueryArray(copyState);
-        console.log("here", queryArray[Query.targetValue]);
+        console.log("here", queryArray[Query.targetValue as keyof bigQuery]);
       }
     }
   };
 
   const runMutation = () => {
     const queryCopy = { ...Query };
-    queryCopy.demoResult = queryArray[Query.targetValue].mutationString;
+    queryCopy.demoResult = queryArray[Query.targetValue as keyof bigQuery].mutationString;
     setQuery(queryCopy);
     const copyState = { ...queryArray };
-    copyState[Query.targetValue].beenMutated = true;
-    copyState[Query.targetValue].isCached = false;
-    copyState[Query.targetValue].cacheTime = null;
-    copyState[Query.targetValue].localStorageTimer = 10;
-    copyState[Query.targetValue].redisTimer = 60;
-    copyState[Query.targetValue].cacheMessage = " Cache Missed";
+    copyState[Query.targetValue as keyof bigQuery].beenMutated = true;
+    copyState[Query.targetValue as keyof bigQuery].isCached = false;
+    copyState[Query.targetValue as keyof bigQuery].cacheTime = null;
+    copyState[Query.targetValue as keyof bigQuery].localStorageTimer = 10;
+    copyState[Query.targetValue as keyof bigQuery].redisTimer = 60;
+    copyState[Query.targetValue as keyof bigQuery].cacheMessage = " Cache Missed";
     setQueryArray(copyState);
   };
-
-  const dropDown = (e) => {
+  //added event listener REACT.CHANGEEVENT  no sure how it works. 
+  const dropDown = (e: any) => {
     if (e.target.value !== "Query String Here") {
       // console.log(e.target.value)
       console.log(Query);
       let tempObj = { ...Query };
       tempObj.hasRun = false;
       tempObj.targetValue = e.target.value;
-      tempObj.demoTest = queryArray[e.target.value].queryString;
-      tempObj.demoResult = queryArray[e.target.value].resultString;
+      tempObj.demoTest = queryArray[e.target.value as keyof bigQuery].queryString;
+      tempObj.demoResult = queryArray[e.target.value as keyof bigQuery].resultString;
       setQuery(tempObj);
     }
   };

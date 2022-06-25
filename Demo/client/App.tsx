@@ -1,8 +1,8 @@
 import React from 'react';
 import {Routes, Route} from 'react-router-dom';
-import Home from './routes/Home.jsx'
-import Team from './routes/Team.jsx'
-import Demo from './routes/Demo.jsx'
+import Home from './routes/Home'
+import Team from './routes/Team'
+import Demo from './routes/Demo'
 import './styles/Index.css'
 
 function App() {
