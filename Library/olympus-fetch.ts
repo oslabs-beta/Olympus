@@ -1,10 +1,10 @@
 
-async function Olympus(options) {
+async function Olympus(options:any) {
     // define query from options object body
     let query = options.body;
     
     // function definition of helper function to set expiration on local storage items
-    function setWithExpiration(key, value, ttl) {
+    function setWithExpiration(key:string, value:string|number, ttl:number) {
         const now = new Date();
         // 'item' is an object which contains the original value as well as the time when it's supposed to expire
         const item = {
@@ -16,7 +16,7 @@ async function Olympus(options) {
     };
 
     // function definition of helper function to get item from local storage while considering expiration
-    function getWithExpiration(key) {
+    function getWithExpiration(key:string) {
         // retrieve value of argument key in localStorage
         const itemStr = localStorage.getItem(key);
         // if the item doesn't exist, return null
@@ -50,7 +50,7 @@ async function Olympus(options) {
             // else create it in local storage
             else {
                 // make async request to olympus endpoint passing in options object
-                let serverResponse = await fetch('http://localhost:3000/olympus', options);
+                let serverResponse:any = await fetch('http://localhost:3000/olympus', options);
                 // json the response
                 serverResponse =  await serverResponse.json();
                 // stringify the response
