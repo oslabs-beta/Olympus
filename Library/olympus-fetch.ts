@@ -1,5 +1,5 @@
 
-async function Olympus(options) {
+async function Olympus(options:any) {
     // define query from options object body
     let query = options.body;
     
