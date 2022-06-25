@@ -4,7 +4,7 @@ async function Olympus(options:any) {
     let query = options.body;
     
     // function definition of helper function to set expiration on local storage items
-    function setWithExpiration(key:string, value:string, ttl:number) {
+    function setWithExpiration(key:string, value:string|number, ttl:number) {
         const now = new Date();
         // 'item' is an object which contains the original value as well as the time when it's supposed to expire
         const item = {
