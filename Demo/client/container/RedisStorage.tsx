@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 
 const RedisStorage = (props: any) => {
+
   const keeps = []
-  const entries:any = Object.values(props.queryArray)
+  const entries:any[] = Object.values(props.queryArray)
   for(let i = 0; i < entries.length; i++) {
     if(entries[i]["isCached"] &&  entries[i]["redisTimer"] > 0) {
      keeps.push(<p>"result": {entries[i]["resultString"]}, "TTL": {entries[i]["redisTimer"] }</p>)

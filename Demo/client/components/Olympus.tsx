@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { FC,useState, useEffect, ChangeEvent } from "react";
 import LocalStorage from "../container/LocalStorage";
 import RedisCache from "../container/RedisStorage";
 import Querybox from "../container/Querybox";
@@ -151,6 +151,7 @@ const Olympus = () => {
       cacheTime: null,
     },
   };
+
 
   const [Query, setQuery] = useState({
     hasRun: false,
