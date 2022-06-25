@@ -159,7 +159,7 @@ const Olympus = () => {
     demoTest: "",
     demoResult: "",
   });
-  const isCached = (key:string) => {
+  const isCached = (key:string):void => {
     const stateCopy:bigQuery = { ...queryArray };
     // const temp = stateCopy[key as keyof bigQuery]
     stateCopy[key as keyof bigQuery].isCached = true;
@@ -167,7 +167,7 @@ const Olympus = () => {
   };
   //value here shouldn't be any
   //tried null|number|string didnt work ??? might as well put any i guess
-  const cacheTime = (key:string, value: any) => {
+  const cacheTime = (key:string, value: any):void => {
     const stateCopy:bigQuery = { ...queryArray };
     stateCopy[key as keyof bigQuery].cacheTime = value;
     setQueryArray(stateCopy);
@@ -186,18 +186,18 @@ const Olympus = () => {
     return (sigma * (run_total - nsamples / 2)) / (nsamples / 2) + mu;
   }
 
-  const redisTimer = (key:string) => {
+  const redisTimer = (key:string):void => {
     const stateCopy = { ...queryArray };
     stateCopy[key as keyof bigQuery].redisTimer = stateCopy[key as keyof bigQuery].redisTimer - 1;
     setQueryArray(stateCopy);
   };
-  const localStorageTimer = (key:string) => {
+  const localStorageTimer = (key:string):void => {
     const stateCopy = { ...queryArray };
     stateCopy[key as keyof bigQuery].localStorageTimer = stateCopy[key as keyof bigQuery].localStorageTimer - 1;
     setQueryArray(stateCopy);
   };
 
-  const cacheMessage = (key:string, value:string) => {
+  const cacheMessage = (key:string, value:string):void => {
     const stateCopy = { ...queryArray };
     stateCopy[key as keyof bigQuery].cacheMessage = value;
     setQueryArray(stateCopy);
